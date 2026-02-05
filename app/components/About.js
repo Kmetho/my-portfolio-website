@@ -1,4 +1,4 @@
-export function About() {
+export default function About() {
   return (
     <div className="p-8 max-w-3xl mx-auto">
       <h1 className="text-4xl font-display mb-4">About</h1>
@@ -19,7 +19,11 @@ export function About() {
           here
         </a>
         or connect with me on{" "}
-        <a href="https://www.instagram.com/wercche/" target="_blank" className="text-blue-600 underline">
+        <a
+          href="https://www.instagram.com/wercche/"
+          target="_blank"
+          className="text-blue-600 underline"
+        >
           Instagram
         </a>
         . I'm always open to new opportunities and collaborations!

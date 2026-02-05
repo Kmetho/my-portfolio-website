@@ -7,7 +7,7 @@ export default function BlenderRender() {
       <div className="w-full bg-white border-b-2 border-black pt-[5px] pb-[10px]">
         <h2
           className="
-            text-2xl font-normal w-fit
+            text-2xl font-display w-fit
             border border-black rounded-full
             px-3 py-2 m-4
             bg-white
