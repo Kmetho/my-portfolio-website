@@ -1,8 +1,8 @@
 export default function Banner() {
   const content = (
     <>
-      🚂 Weronika Kmiec, creative technologist | web, 3D, visuals, and
-      sometimes photos | Contact:&nbsp;
+      🚂 Weronika Kmieć, creative technologist | web, 3D, visuals, and sometimes
+      photos | Contact:&nbsp;
       <a href="mailto:wercche@gmail.com" className="underline hover:opacity-70">
         e-mail
       </a>
@@ -19,7 +19,10 @@ export default function Banner() {
   );
 
   return (
-    <div className="relative w-full overflow-hidden bg-[var(--text-color)] text-white uppercase font-display text-5xl">
+    <div
+      className="relative w-full overflow-hidden bg-[var(--text-color)] text-white uppercase font-display text-5xl"
+      lang="pl"
+    >
       <div
         className="flex w-max animate-marquee hover:[animation-play-state:paused]"
         aria-hidden="true"
