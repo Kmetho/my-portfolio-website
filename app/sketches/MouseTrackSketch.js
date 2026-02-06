@@ -6,6 +6,7 @@ export default function sketch(p) {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.noStroke();
+    p.fill(0);
     p.textAlign(p.CENTER, p.CENTER);
     p.textSize(30);
 
@@ -27,8 +28,8 @@ export default function sketch(p) {
     y[0] = p.mouseY;
 
     for (let i = 0; i < word.length; i++) {
-      p.fill(0, 200 - i * 12);
-      p.textSize(32 - i * 0.6);
+      // p.fill(0, 200 - i * 12);
+      // p.textSize(20 - i * 0.6);
       p.text(word[i], x[i], y[i]);
     }
   };

@@ -17,7 +17,7 @@ export default function About() {
         Feel free to reach out to me via email{" "}
         <a href="mailto:wercche@gmail.com" className="text-blue-600 underline">
           here
-        </a>
+        </a>{" "}
         or connect with me on{" "}
         <a
           href="https://www.instagram.com/wercche/"
