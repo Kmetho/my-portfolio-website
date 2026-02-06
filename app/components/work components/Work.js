@@ -1,5 +1,5 @@
-import Websites from "./work components/Websites";
-import BlenderRender from "./work components/BlenderRender";
+import Websites from "./Websites";
+import BlenderRender from "./BlenderRender";
 
 export default function Work() {
   return (

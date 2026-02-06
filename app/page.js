@@ -1,6 +1,5 @@
-import Banner from "./components/Banner";
-import HeroCanvas from "./components/HeroCanvas";
-
+import Banner from "./components/UI/Banner";
+import HeroCanvas from "./components/UI/HeroCanvas";
 
 export default function Home() {
   return (

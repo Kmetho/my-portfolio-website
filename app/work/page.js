@@ -1,5 +1,5 @@
-import Banner from "../components/Banner";
-import Work from "./Work";
+import Banner from "../components/UI/Banner";
+import Work from "../components/work components/Work";
 
 export default function WorkPage() {
   return (
