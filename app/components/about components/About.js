@@ -1,32 +1,42 @@
 export default function About() {
   return (
     <div className="p-8 max-w-3xl mx-auto">
-      <h1 className="text-4xl font-display mb-4">About</h1>
-      <p className="mb-4">
-        Hello! I'm Weronika Kmieć, a creative technologist specializing in web
-        development, 3D art, and visual design. I love blending technology with
-        creativity to produce unique digital experiences.
+      <h1 className="text-4xl font-display mb-6">
+        I build digital experiences where code behaves like material.
+      </h1>
+
+      <p className="mb-4 text-lg">
+        I’m Weronika Kmieć — a creative technologist working across web
+        development, generative visuals, and 3D. I use code as a design tool,
+        not just a delivery mechanism.
       </p>
+
       <p className="mb-4">
-        With a background in both art and programming, I bring a
-        multidisciplinary approach to my projects. Whether it's building
-        interactive websites or crafting stunning 3D visuals, I strive to push
-        the boundaries of what's possible.
+        My background in media arts shapes how I build interfaces: I care about
+        rhythm, interaction, and emotional response as much as performance and
+        structure. I’m most interested in work that sits between engineering and
+        expression.
       </p>
-      <p>
-        Feel free to reach out to me via email{" "}
-        <a href="mailto:wercche@gmail.com" className="text-blue-600 underline">
-          here
+      <p className="mb-4 text-sm opacity-80">
+        Currently exploring scroll-based narratives, generative motion,
+        TouchDesigner, and how minimal UI can coexist with expressive
+        backgrounds.
+      </p>
+
+      <p className="mt-8 text-sm">
+        You can reach me at{" "}
+        <a href="mailto:wercche@gmail.com" className="underline">
+          wercche@gmail.com
         </a>{" "}
-        or connect with me on{" "}
+        or on{" "}
         <a
           href="https://www.instagram.com/wercche/"
           target="_blank"
-          className="text-blue-600 underline"
+          className="underline"
         >
           Instagram
         </a>
-        . I'm always open to new opportunities and collaborations!
+        .
       </p>
     </div>
   );
