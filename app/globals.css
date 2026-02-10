@@ -44,6 +44,17 @@ div::-webkit-scrollbar-thumb {
   outline: 1px solid rgb(0, 0, 0);
 }
 
+li {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+li:hover {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
 @media (max-width: 701px) {
   body {
     overflow-y: visible;

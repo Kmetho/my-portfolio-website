@@ -1,43 +1,38 @@
 export default function About() {
   return (
-    <div className="p-8 max-w-3xl mx-auto">
-      <h1 className="text-4xl font-display mb-6">
-        I build digital experiences where code behaves like material.
-      </h1>
+    <div>
+      <section className="px-8 py-24 max-w-2xl mx-auto">
+        <h1 className="text-3xl font-display mb-16">About</h1>
 
-      <p className="mb-4 text-lg">
-        I’m Weronika Kmieć — a creative technologist working across web
-        development, generative visuals, and 3D. I use code as a design tool,
-        not just a delivery mechanism.
-      </p>
+        <div className="space-y-10 text-lg leading-relaxed">
+          <p>
+            I am a creative technologist working across web development,
+            generative motion, and 3D.
+          </p>
 
-      <p className="mb-4">
-        My background in media arts shapes how I build interfaces: I care about
-        rhythm, interaction, and emotional response as much as performance and
-        structure. I’m most interested in work that sits between engineering and
-        expression.
-      </p>
-      <p className="mb-4 text-sm opacity-80">
-        Currently exploring scroll-based narratives, generative motion,
-        TouchDesigner, and how minimal UI can coexist with expressive
-        backgrounds.
-      </p>
+          <p>
+            I design interfaces where code defines behavior and rhythm, not just
+            layout.
+          </p>
 
-      <p className="mt-8 text-sm">
-        You can reach me at{" "}
-        <a href="mailto:wercche@gmail.com" className="underline">
-          wercche@gmail.com
-        </a>{" "}
-        or on{" "}
-        <a
-          href="https://www.instagram.com/wercche/"
-          target="_blank"
-          className="underline"
-        >
-          Instagram
-        </a>
-        .
-      </p>
+          <p className="opacity-80">
+            Currently focused on interactive web experiences and expressive
+            systems.
+          </p>
+        </div>
+      </section>
+      <section className="px-8 pb-32 max-w-2xl mx-auto">
+        <h2 className="text-xs uppercase tracking-widest opacity-60 mb-6">
+          Focus
+        </h2>
+
+        <ul className="space-y-3 text-sm">
+          <li>Interactive web experiences</li>
+          <li>Creative coding and generative motion</li>
+          <li>Scroll-based and time-based narratives</li>
+          <li>Minimal interfaces with expressive systems</li>
+        </ul>
+      </section>
     </div>
   );
 }
