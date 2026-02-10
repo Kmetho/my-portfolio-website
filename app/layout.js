@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "An autodidact developer unearthing the in-between of virtual and real.",
   icons: {
-    icon: "/public/smile.ico",
+    icon: "/smile.ico",
   },
   robots: "index, follow",
   alternates: {
@@ -13,11 +13,13 @@ export const metadata = {
   },
   openGraph: {
     title: "wercche",
+    description:
+      "An autodidact developer unearthing the in-between of virtual and real.",
     type: "website",
     url: "https://wercche.xyz/",
     siteName: "wercche",
     locale: "en_US",
-    images: "/public/og-image.png",
+    images: "/og-image.png",
   },
   other: {
     "X-UA-Compatible": "IE=edge",
@@ -27,7 +29,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      
       <body>{children}</body>
     </html>
   );
