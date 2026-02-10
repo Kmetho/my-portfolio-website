@@ -19,7 +19,7 @@ export const metadata = {
     url: "https://wercche.xyz/",
     siteName: "wercche",
     locale: "en_US",
-    images: "/og-image.jpg",
+    images: "/opengraph-image.jpg",
   },
   other: {
     "X-UA-Compatible": "IE=edge",
