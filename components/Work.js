@@ -41,40 +41,23 @@ const otherProjects = [
     image: "/placeholder.png",
     link: "#",
   },
-
 ];
 
 function FeaturedProject({ project }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-[var(--radius-lg)] border transition-all duration-500"
-    >
-      <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-[var(--muted)]">
+    <div className="group relative grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-[var(--radius-lg)] border border-border bg-card transition-all duration-500">
+      <div className="relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-muted">
         <Image
           src={project.image}
           alt={project.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* gradient overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-          // style={{
-          //   background: "linear-gradient(135deg, transparent 40%, var(--accent) 200%)",
-          //   opacity: hovered ? 0.15 : 0,
-          // }}
-        />
+        <div className="pointer-events-none absolute inset-0 transition-opacity duration-500" />
       </div>
 
       <div className="flex flex-col justify-center gap-5 p-8 lg:p-12">
-        <span className="w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest">
+        <span className="w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest bg-primary text-primary-foreground">
           Featured Project
         </span>
 
@@ -82,28 +65,35 @@ function FeaturedProject({ project }) {
           {project.title}
         </h2>
 
-        <p className="text-lg font-medium -mt-2">{project.subtitle}</p>
+        <p className="text-lg font-medium -mt-2 text-muted-foreground">
+          {project.subtitle}
+        </p>
 
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full px-3 py-1 text-xs font-medium"
+              className="rounded-full px-3 py-1 text-xs font-medium bg-muted text-muted-foreground"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <p className="text-sm leading-relaxed max-w-md">
+        <p className="text-sm leading-relaxed max-w-md text-muted-foreground">
           {project.description}
         </p>
 
-        <div className="mt-2 flex items-center gap-3 w-fit rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300">
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 flex items-center gap-3 w-fit rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-primary text-primary-foreground hover:shadow-[0_8px_32px_var(--glow-primary)]"
+        >
           View Case Study →
-        </div>
+        </a>
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -111,12 +101,7 @@ function ProjectCard({ project }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative flex flex-col overflow-hidden rounded-[var(--radius)] border transition-all duration-300"
-    >
+    <div className="group relative flex flex-col overflow-hidden rounded-[var(--radius)] border border-border bg-card transition-all duration-300 hover:shadow-md">
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--muted)]">
         <Image
           src={project.image}
@@ -135,20 +120,27 @@ function ProjectCard({ project }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+              className="rounded-full px-2.5 py-0.5 text-[11px] font-medium bg-muted text-muted-foreground"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        <p className="text-sm leading-relaxed">{project.description}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {project.description}
+        </p>
 
-        <span className="mt-auto pt-2 text-xs font-semibold uppercase tracking-widest transition-colors duration-300">
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto pt-2 text-xs font-semibold uppercase tracking-widest transition-colors duration-300"
+        >
           View project →
-        </span>
+        </a>
       </div>
-    </a>
+    </div>
   );
 }
 
