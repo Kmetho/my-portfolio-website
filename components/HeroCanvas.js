@@ -22,6 +22,6 @@ export default function HeroCanvas() {
   }, []);
 
   return (
-    <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none" />
+    <div ref={containerRef} className="fixed inset-0 z-0" />
   );
 }

@@ -1,103 +1,124 @@
 export default function Sketch(p) {
-  const textString = "❁✿❀❁✿❀❁✿❀❁✿❀❁✿❀❁✿❀ ";
-
   const CONFIG = {
-    typeX: 65,
-    typeY: 65,
-    typeStroke: 1,
-    tracking: 65,
+    ribbonCount: 16,
+    ribbonSpaceX: -60,
+    ribbonSpaceY: 60,
+    ribbonHalf: 58,
+    segments: 80,
+    segmentWidth: 30,
 
-    ribbonCount: 14,
-    ribbonSpaceX: -65,
-    ribbonSpaceY: 65,
-    ribbonSize: 55,
-    ribbonOffset: 0,
+    yWave: 55,
+    speed: 0.03,
+    offset: 0.25,
+    ribbonOffset: 0.15,
 
-    yWave: 50,
-    speed: 0.04,
-    offset: 2,
-    slope: 1,
+    mouseRadius: 400,
+    mouseStrength: 70,
 
     colors: [
-      "#B9A7D8", // ethereal purple, less pink
-      "#8FB3FF", // muted, dreamy blue
-      "#E6B8C6", // emotional but restrained
-      "#E8F0EE", // soft fog, not sterile white
-      "#7FAFA3", // bridges green-black nicely
+      [185, 167, 216], // purple
+      [143, 179, 255], // blue
+      [230, 184, 198], // pink
+      [232, 240, 238], // fog
+      [127, 175, 163], // teal
     ],
-    background: "#1D201F", // sacred black
+    background: [29, 32, 31],
   };
 
+  let mx, my;
+
   p.setup = () => {
-    p.createCanvas(p.windowWidth, p.windowHeight);
-    p.noFill();
-    p.strokeCap(p.PROJECT);
-    p.strokeJoin(p.ROUND);
+    p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+    p.pixelDensity(1);
+    mx = 0;
+    my = 0;
   };
 
   p.draw = () => {
-    p.background(CONFIG.background);
+    p.background(...CONFIG.background);
 
-    const chars = textString.length;
-    const xSpace = CONFIG.typeX + CONFIG.tracking;
+    // ease mouse (WEBGL origin is center, so offset)
+    const targetX = (p.mouseX || p.width / 2) - p.width / 2;
+    const targetY = (p.mouseY || p.height / 2) - p.height / 2;
+    mx = p.lerp(mx, targetX, 0.12);
+    my = p.lerp(my, targetY, 0.12);
 
-    p.push();
-    p.translate(p.width / 2, p.height / 2);
-    p.translate(
-      (-xSpace * chars) / 2 - (CONFIG.ribbonCount * CONFIG.ribbonSpaceX) / 2,
-      (-CONFIG.ribbonCount * CONFIG.ribbonSpaceY) / 2,
-    );
+    const totalW = CONFIG.segments * CONFIG.segmentWidth;
+    const originX =
+      -totalW / 2 - (CONFIG.ribbonCount * CONFIG.ribbonSpaceX) / 2;
+    const originY = (-CONFIG.ribbonCount * CONFIG.ribbonSpaceY) / 2;
 
     for (let k = 0; k < CONFIG.ribbonCount; k++) {
-      // Ribbon
-      p.strokeWeight(CONFIG.typeY + CONFIG.ribbonSize);
-      p.stroke(CONFIG.colors[k % CONFIG.colors.length]);
-      p.beginShape();
-      for (let i = -1; i <= chars; i++) {
-        const y = sinEngine(i, k) * CONFIG.yWave;
+      const [cr, cg, cb] = CONFIG.colors[k % CONFIG.colors.length];
+
+      // slight alpha on deeper ribbons for depth
+      const alpha = p.map(k, 0, CONFIG.ribbonCount - 1, 255, 180);
+
+      p.fill(cr, cg, cb, alpha);
+      p.noStroke();
+
+      // precompute centerline
+      const pts = [];
+      for (let i = 0; i <= CONFIG.segments; i++) {
+        const bx = originX + i * CONFIG.segmentWidth + k * CONFIG.ribbonSpaceX;
+        const by = originY + k * CONFIG.ribbonSpaceY + wave(i, k) * CONFIG.yWave;
+
+        // mouse push — smoothstep falloff (no hard edge)
+        const dx = bx - mx;
+        const dy = by - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        let pushX = 0;
+        let pushY = 0;
+        if (dist < CONFIG.mouseRadius && dist > 0) {
+          // smoothstep: 3t² - 2t³ (eases in AND out, no visible boundary)
+          const t = 1 - dist / CONFIG.mouseRadius;
+          const smooth = t * t * (3 - 2 * t);
+          const force = smooth * CONFIG.mouseStrength;
+          pushX = (dx / dist) * force * 0.3;
+          pushY = (dy / dist) * force;
+        }
+
+        pts.push({ x: bx + pushX, y: by + pushY });
+      }
+
+      // draw ribbon as TRIANGLE_STRIP
+      p.beginShape(p.TRIANGLE_STRIP);
+      for (let i = 0; i < pts.length; i++) {
+        // compute normal (perpendicular to tangent)
+        let tx, ty;
+        if (i === 0) {
+          tx = pts[1].x - pts[0].x;
+          ty = pts[1].y - pts[0].y;
+        } else if (i === pts.length - 1) {
+          tx = pts[i].x - pts[i - 1].x;
+          ty = pts[i].y - pts[i - 1].y;
+        } else {
+          tx = pts[i + 1].x - pts[i - 1].x;
+          ty = pts[i + 1].y - pts[i - 1].y;
+        }
+        const len = Math.sqrt(tx * tx + ty * ty) || 1;
+        const nx = -ty / len;
+        const ny = tx / len;
+
         p.vertex(
-          i * xSpace + k * CONFIG.ribbonSpaceX,
-          k * CONFIG.ribbonSpaceY + y,
+          pts[i].x + nx * CONFIG.ribbonHalf,
+          pts[i].y + ny * CONFIG.ribbonHalf,
+        );
+        p.vertex(
+          pts[i].x - nx * CONFIG.ribbonHalf,
+          pts[i].y - ny * CONFIG.ribbonHalf,
         );
       }
       p.endShape();
-
-      // Text
-      p.strokeWeight(CONFIG.typeStroke);
-      p.stroke(CONFIG.colors[(k + 1) % CONFIG.colors.length]);
-
-      for (let i = 0; i < chars; i++) {
-        const yPrev = sinEngine(i - 1, k) * CONFIG.yWave;
-        const yNext = sinEngine(i + 1, k) * CONFIG.yWave;
-        const rotation = p.atan2(yNext - yPrev, 2 * xSpace);
-        const y = sinEngine(i, k) * CONFIG.yWave;
-
-        p.push();
-        p.translate(
-          i * xSpace + k * CONFIG.ribbonSpaceX,
-          k * CONFIG.ribbonSpaceY + y,
-        );
-        p.rotate(rotation);
-        p.translate(-CONFIG.typeX / 2, -CONFIG.typeY / 2);
-        drawLetter(textString[i]);
-        p.pop();
-      }
     }
-    p.pop();
   };
 
-  function drawLetter(letter) {
-    if (letter === " ") return;
-    p.textSize(CONFIG.typeY);
-    p.text(letter, 0, CONFIG.typeY);
-  }
-
-  function sinEngine(x, y) {
-    const s = p.sin(
-      p.frameCount * CONFIG.speed + x * CONFIG.offset + y * CONFIG.ribbonOffset,
+  function wave(x, k) {
+    return p.sin(
+      p.frameCount * CONFIG.speed +
+        x * CONFIG.offset +
+        k * CONFIG.ribbonOffset,
     );
-    const sign = s >= 0 ? 1 : -1;
-    return sign * (1 - p.pow(1 - p.abs(s), CONFIG.slope));
   }
 
   p.windowResized = () => {
