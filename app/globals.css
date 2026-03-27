@@ -1,5 +1,4 @@
 @import url("https://use.typekit.net/gpq0zkv.css");
-@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap");
 @import "tailwindcss";
 
 @layer base {
@@ -10,24 +9,24 @@
     --card-foreground: oklch(0.09 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.09 0 0);
-    --primary: oklch(0.648 0.192 155);
-    --primary-foreground: oklch(0.995 0 0);
-    --secondary: oklch(0.574 0.168 293);
-    --secondary-foreground: oklch(0.995 0 0);
+    --primary: oklch(0.795 0.238 155);
+    --primary-foreground: oklch(0.09 0 0);
+    --secondary: oklch(0.678 0.163 293);
+    --secondary-foreground: oklch(0.09 0 0);
     --muted: oklch(0.957 0.008 145);
     --muted-foreground: oklch(0.468 0.014 145);
-    --accent: oklch(0.648 0.174 52);
-    --accent-foreground: oklch(0.995 0 0);
-    --highlight: oklch(0.808 0.148 98);
+    --accent: oklch(0.725 0.191 55);
+    --accent-foreground: oklch(0.09 0 0);
+    --highlight: oklch(0.892 0.148 98);
     --highlight-foreground: oklch(0.09 0 0);
-    --soft: oklch(0.938 0.055 145);
+    --soft: oklch(0.922 0.148 145);
     --soft-foreground: oklch(0.09 0 0);
     --destructive: oklch(0.565 0.2 18);
     --destructive-foreground: oklch(0.995 0 0);
     --border: oklch(0.912 0.006 145);
     --input: oklch(0.912 0.006 145);
-    --ring: oklch(0.648 0.192 155);
-    --chart-1: oklch(0.648 0.192 155);
+    --ring: oklch(0.795 0.238 155);
+    --chart-1: oklch(0.795 0.238 155);
     --chart-2: oklch(0.678 0.163 293);
     --chart-3: oklch(0.725 0.191 55);
     --chart-4: oklch(0.892 0.148 98);
@@ -80,10 +79,9 @@
 }
 
 @theme {
-  --font-display: "Syne", degular-display, sans-serif;
-  --font-text: "DM Sans", degular-text, sans-serif;
+  --font-display: obviously-variable, sans-serif;
+  --font-text: obviously-variable, sans-serif;
   --text-5xl--line-height: 1.5;
-
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -101,64 +99,15 @@
   --color-ring: var(--ring);
 }
 
-* {
-  user-select: none;
-}
-
 body {
   overflow: hidden;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-text);
-  animation: pop 2s ease-in;
   -webkit-font-smoothing: antialiased;
   transition:
     background var(--transition),
     color var(--transition);
-}
-
-p {
-  font-family: var(--font-text);
-}
-
-div::-webkit-scrollbar {
-  width: 0.25rem;
-}
-
-div::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(55, 9, 98, 0.3);
-}
-
-div::-webkit-scrollbar-thumb {
-  background-color: var(--muted-foreground);
-  outline: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-}
-
-@media (max-width: 701px) {
-  body {
-    overflow-y: visible;
-  }
-}
-
-@keyframes pop {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 100%;
-  }
-}
-
-@keyframes hide {
-  from {
-    transform: scale(1);
-    visibility: visible;
-  }
-  to {
-    transform: scale(0);
-    visibility: hidden;
-  }
 }
 
 @keyframes marquee {
