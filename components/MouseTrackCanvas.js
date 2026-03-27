@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Sketch from "../../sketches/MouseTrackSketch";
+import Sketch from "@/sketches/MouseTrackSketch";
 
 export default function P5Canvas() {
   const containerRef = useRef(null);

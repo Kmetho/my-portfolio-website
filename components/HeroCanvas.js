@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Sketch from "../../sketches/HeroSketch";
+import Sketch from "@/sketches/HeroSketch";
 
 export default function HeroCanvas() {
   const containerRef = useRef(null);

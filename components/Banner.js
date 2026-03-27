@@ -20,7 +20,7 @@ export default function Banner() {
 
   return (
     <div
-      className="z-1 relative w-full overflow-hidden bg-[var(--sacred-black)] text-white uppercase font-display text-5xl"
+      className="z-10 relative w-full overflow-hidden text-white uppercase font-display text-5xl"
       lang="pl"
     >
       <div
