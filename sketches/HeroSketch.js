@@ -16,13 +16,13 @@ export default function Sketch(p) {
     mouseStrength: 70,
 
     colors: [
-      [185, 167, 216], // purple
-      [143, 179, 255], // blue
-      [230, 184, 198], // pink
-      [232, 240, 238], // fog
-      [127, 175, 163], // teal
+      [9, 232, 94],    // primary green
+      [157, 141, 241], // secondary purple
+      [255, 127, 17],  // accent orange
+      [185, 255, 183], // soft mint
+      [240, 206, 80],  // highlight warm
     ],
-    background: [29, 32, 31],
+    background: [17, 17, 17],
   };
 
   let mx, my;
