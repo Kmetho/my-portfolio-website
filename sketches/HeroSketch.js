@@ -5,7 +5,8 @@ export default function Sketch(p) {
     ribbonSpaceY: 60,
     ribbonHalf: 58,
     segments: 80,
-    segmentWidth: 30,
+    subdivisions: 2,
+    segmentWidth: p.windowWidth,
 
     yWave: 55,
     speed: 0.03,
@@ -51,17 +52,20 @@ export default function Sketch(p) {
     for (let k = 0; k < CONFIG.ribbonCount; k++) {
       const [cr, cg, cb] = CONFIG.colors[k % CONFIG.colors.length];
 
-      // slight alpha on deeper ribbons for depth
       const alpha = p.map(k, 0, CONFIG.ribbonCount - 1, 255, 180);
 
       p.fill(cr, cg, cb, alpha);
       p.noStroke();
 
-      // precompute centerline
+      // precompute centerline (subdivided for smoothness)
+      const sub = CONFIG.subdivisions;
+      const totalPts = CONFIG.segments * sub;
+      const subWidth = CONFIG.segmentWidth / sub;
       const pts = [];
-      for (let i = 0; i <= CONFIG.segments; i++) {
-        const bx = originX + i * CONFIG.segmentWidth + k * CONFIG.ribbonSpaceX;
-        const by = originY + k * CONFIG.ribbonSpaceY + wave(i, k) * CONFIG.yWave;
+      for (let i = 0; i <= totalPts; i++) {
+        const frac = i / sub; // fractional segment index
+        const bx = originX + i * subWidth + k * CONFIG.ribbonSpaceX;
+        const by = originY + k * CONFIG.ribbonSpaceY + wave(frac, k) * CONFIG.yWave;
 
         // mouse push — smoothstep falloff (no hard edge)
         const dx = bx - mx;
