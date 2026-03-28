@@ -67,11 +67,7 @@ function ParallaxScreen({ screen, index }) {
   const y = useTransform(scrollYProgress, [0, 1], [0, speeds[index] || -20]);
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ y }}
-      className="flex flex-col gap-3"
-    >
+    <motion.div ref={ref} style={{ y }} className="flex flex-col gap-3">
       <div className="relative overflow-hidden rounded-[var(--radius)] border border-border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <Image
           src={screen.src}
@@ -106,16 +102,16 @@ export default function Work() {
             </FadeIn>
 
             <FadeIn delay={0.1}>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6">
+              <h1 className="italic text-xl md:text-3xl lg:text-4xl tracking-tight mb-6">
                 Briefed
               </h1>
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              <p className="text-xl md:text-2xl leading-relaxed text-muted-foreground max-w-2xl mb-10">
-                A client brief tool for creative freelancers. Turn chaotic
-                client messages into structured, actionable briefs. Send a
-                guided form, get a clean PDF.
+              <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl mb-10">
+                A client brief tool for freelancers. Turn chaotic client
+                messages into structured briefs. Send a guided form,
+                get a clean PDF.
               </p>
             </FadeIn>
 
@@ -146,7 +142,7 @@ export default function Work() {
                   <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
                     Role
                   </p>
-                  <p className="text-foreground">Design, frontend, product</p>
+                  <p className="text-foreground">fullstack, UX/UI</p>
                 </div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
@@ -168,7 +164,6 @@ export default function Work() {
           </div>
         </header>
 
-        {/* screenshots with parallax */}
         <div className="px-8 pb-16 md:px-16 lg:px-24">
           <div className="max-w-6xl">
             <div className="grid grid-cols-3 gap-4 md:gap-6">
@@ -181,7 +176,6 @@ export default function Work() {
 
         <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-        {/* case study body — each section fades in on scroll */}
         <div className="px-8 py-16 md:px-16 lg:px-24 space-y-16">
           <div className="max-w-6xl space-y-20">
             <Section title="The problem">
@@ -193,15 +187,8 @@ export default function Work() {
                 email that feels like a tax form.
               </p>
               <p>
-                I'd been on both sides of this. As a student taking on small
-                commissions, I was piecing together briefs from half-finished
-                conversations and filling in the gaps myself - which meant
-                misaligned expectations, scope creep, and unpaid revision
-                rounds.
-              </p>
-              <p>
-                The fix felt obvious: a tool that sends clients a guided form
-                and gives you back a clean PDF. Nothing radical. But everything
+                Thus I pondered about a tool that sends clients a guided form
+                and gives back a clean PDF. Nothing radical. But everything
                 that existed was either too enterprise or too shallow. I wanted
                 something that felt like it was built specifically for
                 creatives.
@@ -222,10 +209,10 @@ export default function Work() {
                 the PDF export.
               </p>
               <p>
-                For the dashboard I kept the information density low. Freelancers
-                don't manage hundreds of briefs, but a handful of active
-                projects at a time. I think a clean list with search and archive
-                is enough.
+                For the dashboard I kept the information density low.
+                Freelancers don't manage hundreds of briefs, but a handful of
+                active projects at a time. I think a clean list with search and
+                archive is enough.
               </p>
             </Section>
 
@@ -237,8 +224,8 @@ export default function Work() {
               </p>
               <p>
                 Getting Clerk and UploadThing to work together cleanly for
-                example. I waded through a quagmire only to be humbled (it was
-                a one-line fix).
+                example. I waded through a quagmire only to be humbled (it was a
+                one-line fix).
               </p>
             </Section>
 
