@@ -1,11 +1,12 @@
 export default function Nav({ current }) {
   const links = [
     { label: "Work", href: "/work" },
+    { label: "Experiments", href: "/experiments" },
     { label: "About", href: "/about" },
   ];
 
   return (
-    <nav className="flex items-center justify-between px-8 py-5 md:px-16 lg:px-24 border-b border-border">
+    <nav className="glass flex items-center justify-between px-8 py-5 md:px-16 lg:px-24 border-b">
       <a
         href="/"
         className="font-display text-lg font-black tracking-tight hover:text-primary transition-colors duration-200"
