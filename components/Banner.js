@@ -10,7 +10,7 @@ export default function Banner() {
   const track = [...items, ...items, ...items];
 
   return (
-    <div className="glass relative z-10 w-full overflow-hidden border-b">
+    <div className="glass sticky top-0 z-50 w-full overflow-hidden border-b">
       <div className="flex w-max animate-marquee">
         {track.map((text, i) => (
           <span
