@@ -20,7 +20,7 @@ export default function HeroTypography() {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  // subtle rotation + translate following cursor
+  // rotation + translate following cursor
   const rotateX = -tilt.y * 3; // degrees
   const rotateY = tilt.x * 3;
   const tx = tilt.x * 12; // pixels
@@ -32,7 +32,6 @@ export default function HeroTypography() {
       className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden"
       style={{ background: "var(--hero-grad)" }}
     >
-      {/* overlay — light in light mode, dark in dark mode */}
       <div className="absolute inset-0 hero-overlay" />
 
       <div

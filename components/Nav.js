@@ -27,12 +27,6 @@ export default function Nav({ current }) {
             {link.label}
           </a>
         ))}
-        <a
-          href="mailto:wercche@gmail.com"
-          className="rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider bg-primary text-primary-foreground transition-all duration-200 hover:shadow-[0_4px_20px_var(--glow-primary)]"
-        >
-          Contact
-        </a>
       </div>
     </nav>
   );

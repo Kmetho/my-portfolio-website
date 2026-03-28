@@ -1,14 +1,18 @@
+import ContactBlob from "./ContactBlob";
+
 const tools = [
-  "React",
   "Next.js",
+  "React",
+  "TypeScript",
+  "JavaScript",
   "Tailwind",
-  "Framer Motion",
-  "p5.js",
-  "Three.js",
+  "shadcn/ui",
+  "Vercel",
+  "Git",
   "Blender",
-  "GLSL",
+  "Adobe Creative Suite",
   "Figma",
-  "Node.js",
+  "TouchDesigner",
 ];
 
 const links = [
@@ -18,35 +22,53 @@ const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
 ];
 
+function Section({ title, children }) {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
+      <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1">
+        {title}
+      </p>
+      <div>{children}</div>
+    </div>
+  );
+}
+
 export default function About() {
   return (
     <div className="max-h-screen overflow-y-auto">
-      {/* ── hero statement ── */}
       <section className="px-8 pt-24 pb-20 md:px-16 lg:px-24">
         <div className="max-w-6xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary mb-8">
             About
           </p>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] max-w-4xl">
-            Creative technologist making interfaces that move, respond & feel
-            alive.
-          </h1>
-          <p className="mt-8 text-lg md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
-            I work across web development, generative art, and 3D — building
-            things where code defines rhythm and behavior, not just layout.
-          </p>
+          <div className="max-w-2xl space-y-5 text-base md:text-lg leading-relaxed text-foreground/85">
+            <p>
+              I'm a Media Arts student based in Poland, working across web
+              development and design, 3D, and other visuals. Most of my time
+              goes into building things that are simply fun and functional. Both
+              in real life and in cyberspace.
+            </p>
+            <p>
+              My studies sit at the intersection of art and technology, which is
+              how I ended up caring equally about clean code and beautiful
+              craft. I'm drawn to projects where those two things aren't
+              separate.
+            </p>
+            <p>
+              Currently taking on freelance work and looking for collaborations
+              with studios and teams.
+              <br />
+              Also open to full-time job.
+            </p>
+          </div>
         </div>
       </section>
 
       <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-      {/* ── tools — horizontal flow ── */}
       <section className="px-8 py-16 md:px-16 lg:px-24">
         <div className="max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16 items-start">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1">
-              Tools & Tech
-            </p>
+          <Section title="Tools & Tech">
             <div className="flex flex-wrap gap-3">
               {tools.map((tool) => (
                 <span
@@ -57,19 +79,15 @@ export default function About() {
                 </span>
               ))}
             </div>
-          </div>
+          </Section>
         </div>
       </section>
 
       <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-      {/* ── contact ── */}
       <section className="px-8 py-16 md:px-16 lg:px-24">
         <div className="max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16 items-start">
-            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1">
-              Get in touch
-            </p>
+          <Section title="Get in touch">
             <div className="flex flex-col gap-4">
               {links.map((link) => (
                 <a
@@ -83,15 +101,15 @@ export default function About() {
                     {link.label}
                   </span>
                   <span className="text-muted-foreground group-hover:text-primary transition-colors duration-200 text-lg">
-                    →
+                    &rarr;
                   </span>
                 </a>
               ))}
             </div>
-          </div>
+          </Section>
         </div>
       </section>
-
+      <ContactBlob />
       <div className="h-20" />
     </div>
   );

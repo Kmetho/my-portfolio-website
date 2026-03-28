@@ -7,7 +7,6 @@ export default function Home() {
     <main className="flex flex-col min-h-screen bg-background">
       <Banner />
       <HeroTypography />
-      {/* nav hints */}
       <div className="fixed bottom-8 left-8 z-10 flex flex-col gap-2">
         <a
           href="/work"
