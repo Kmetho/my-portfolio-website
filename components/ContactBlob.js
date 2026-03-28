@@ -104,7 +104,7 @@ export default function ContactBlob() {
             letterSpacing: showText ? "0.1em" : "0",
           }}
         >
-          Let&rsquo;s talk!
+          Let's talk!
         </span>
 
         {/* mail icon when text is hidden */}

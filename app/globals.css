@@ -113,11 +113,11 @@
     "wght" 900;
 }
 
-@utility obvi-wide-bold {
+@utility obvi-thin-italic {
   font-variation-settings:
-    "ital" 0,
-    "wdth" 150,
-    "wght" 800;
+    "ital" 1,
+    "wdth" 60,
+    "wght" 200;
 }
 
 @theme {
