@@ -1,32 +1,22 @@
 export default function Banner() {
   const content = (
     <>
-      🚂 Weronika Kmieć, creative technologist | web, 3D, visuals, and sometimes
-      photos | Contact:&nbsp;
+      Web, 3D, visuals & the in-between ✿ Available for freelance &
+      collaboration ❀&nbsp;
       <a href="mailto:wercche@gmail.com" className="underline hover:opacity-70">
-        e-mail
+        let's talk!
       </a>
-      &nbsp;or DM me on&nbsp;
-      <a
-        href="https://www.instagram.com/wercche/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline hover:opacity-70"
-      >
-        the evil app
-      </a>
+      &nbsp;❁ Based in Poland ❁
     </>
   );
 
   return (
-    <div
-      className="z-10 relative w-full overflow-hidden text-white uppercase font-display text-5xl"
-      lang="pl"
-    >
+    <div className="obvi-wide-bold z-10 relative w-full overflow-hidden text-foreground uppercase text-3xl border-b border-border">
       <div
-        className="flex w-max animate-marquee hover:[animation-play-state:paused]"
+        className="flex w-max animate-marquee hover:animation-play-state:paused"
         aria-hidden="true"
       >
+        <span className="mx-8 whitespace-nowrap">{content}</span>
         <span className="mx-8 whitespace-nowrap">{content}</span>
         <span className="mx-8 whitespace-nowrap">{content}</span>
       </div>
