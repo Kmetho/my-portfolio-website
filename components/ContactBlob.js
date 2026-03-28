@@ -2,19 +2,13 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 
-/*
-  Morphing SVG blob that floats in a corner.
-  - Desktop: cursor proximity makes it "excited" (grows, reveals "Let's talk!")
-  - Mobile:  first tap → unravel text, second tap → mailto
-*/
+const blobA =
+  "M54.3,-63.9C69.3,-52.2,79.4,-34,78.7,-17C78.1,0.1,66.6,16,57,33.1C47.4,50.3,39.6,68.8,25.6,76.5C11.6,84.3,-8.5,81.4,-23.9,72.7C-39.4,64.1,-50.2,49.6,-55.4,34.8C-60.6,19.9,-60.3,4.7,-60.8,-13.9C-61.3,-32.6,-62.8,-54.5,-52.8,-67.1C-42.8,-79.7,-21.4,-82.8,-0.8,-81.8C19.7,-80.8,39.4,-75.6,54.3,-63.9Z";
+const blobB =
+  "M47.7,-56.7C57.4,-48.6,57.8,-29.5,56.2,-13.6C54.5,2.2,50.6,14.6,44.6,26.5C38.6,38.4,30.5,49.8,19.3,54.5C8.1,59.3,-6,57.3,-22.5,54.4C-38.9,51.6,-57.7,47.9,-62.7,37.2C-67.6,26.5,-58.7,8.9,-53,-6.8C-47.2,-22.5,-44.6,-36.3,-36.3,-44.6C-28,-52.9,-14,-55.8,2.5,-58.8C19,-61.8,37.9,-64.8,47.7,-56.7Z";
 
-const BLOB_A =
-  "M44.5,-51.2C56.3,-40.8,63.8,-25.5,66.1,-9.4C68.4,6.7,65.5,23.7,56.2,36.1C46.9,48.5,31.2,56.3,14.4,59.8C-2.4,63.3,-20.3,62.5,-34.5,54.8C-48.7,47.1,-59.2,32.5,-63.1,16.2C-67,-0.1,-64.3,-18.1,-55.4,-31.5C-46.5,-44.9,-31.4,-53.7,-15.8,-56.5C-0.2,-59.3,15.9,-56.1,29.6,-51.5Z";
-const BLOB_B =
-  "M39.8,-47.1C51.6,-38.2,61,-24.8,63.7,-10.1C66.4,4.6,62.4,20.6,53.3,33.1C44.2,45.6,30,54.6,14.1,58.9C-1.8,63.2,-19.4,62.8,-33.6,55.3C-47.8,47.8,-58.6,33.2,-62.4,17.1C-66.2,1,-63,-16.6,-54.1,-29.4C-45.2,-42.2,-30.6,-50.2,-15.8,-55.1C-1,-60,13.9,-61.8,27.1,-56.9Z";
-
-const PROXIMITY_RADIUS = 200;
-const EXCITED_SCALE = 1.3;
+const proximityRadius = 200;
+const excitedScale = 1.5;
 
 export default function ContactBlob() {
   const blobRef = useRef(null);
@@ -37,7 +31,7 @@ export default function ContactBlob() {
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      setExcited(dist < PROXIMITY_RADIUS);
+      setExcited(dist < proximityRadius);
     };
 
     window.addEventListener("mousemove", handleMove, { passive: true });
@@ -78,7 +72,7 @@ export default function ContactBlob() {
         style={{
           width: 80,
           height: 80,
-          transform: showText ? `scale(${EXCITED_SCALE})` : "scale(1)",
+          transform: showText ? `scale(${excitedScale})` : "scale(1)",
         }}
       >
         <svg
@@ -93,7 +87,7 @@ export default function ContactBlob() {
           <path fill="var(--primary)" opacity="0.9">
             <animate
               attributeName="d"
-              values={`${BLOB_A};${BLOB_B};${BLOB_A}`}
+              values={`${blobA};${blobB};${blobA}`}
               dur="6s"
               repeatCount="indefinite"
               calcMode="spline"
@@ -102,7 +96,6 @@ export default function ContactBlob() {
           </path>
         </svg>
 
-        {/* text label */}
         <span
           className="relative z-10 text-primary-foreground font-bold text-[10px] uppercase tracking-widest whitespace-nowrap transition-all duration-300 pointer-events-none"
           style={{
