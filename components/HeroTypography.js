@@ -1,13 +1,38 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+
+const name = "wercche";
+
+const letterVariants = {
+  hidden: { opacity: 0, y: 60, rotateX: -90 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 0.7,
+      delay: 0.3 + i * 0.08,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  }),
+};
+
+const subtitleVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: 1.1, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
 
 export default function HeroTypography() {
   const ref = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // skip on touch devices
     if ("ontouchstart" in window) return;
 
     const handleMove = (e) => {
@@ -20,10 +45,9 @@ export default function HeroTypography() {
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
-  // rotation + translate following cursor
-  const rotateX = -tilt.y * 3; // degrees
+  const rotateX = -tilt.y * 3;
   const rotateY = tilt.x * 3;
-  const tx = tilt.x * 12; // pixels
+  const tx = tilt.x * 12;
   const ty = tilt.y * 8;
 
   return (
@@ -42,12 +66,31 @@ export default function HeroTypography() {
           willChange: "transform",
         }}
       >
-        <h1 className="obvi-extended-super-italic text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] text-foreground/90 leading-[0.9] mb-4">
-          wercche
+        <h1
+          className="obvi-extended-super-italic text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground/90 leading-[0.9] mb-4 flex justify-center"
+          style={{ perspective: "400px" }}
+        >
+          {name.split("").map((char, i) => (
+            <motion.span
+              key={i}
+              custom={i}
+              variants={letterVariants}
+              initial="hidden"
+              animate="visible"
+              className="inline-block"
+            >
+              {char}
+            </motion.span>
+          ))}
         </h1>
-        <p className="obvi-wide-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.3em] text-foreground/50">
-          Creative technologist
-        </p>
+        <motion.p
+          variants={subtitleVariants}
+          initial="hidden"
+          animate="visible"
+          className="obvi-wide-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.3em] text-foreground/50"
+        >
+          web developer & media artist
+        </motion.p>
       </div>
     </div>
   );
