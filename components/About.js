@@ -1,107 +1,94 @@
-const skills = [
-  {
-    category: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
-  },
-  { category: "Creative", items: ["p5.js", "Three.js", "Blender", "GLSL"] },
-  {
-    category: "Design",
-    items: ["Figma", "UI/UX", "Typography", "Motion Design"],
-  },
-  {
-    category: "Other",
-    items: ["Git", "Node.js", "REST APIs", "Responsive Design"],
-  },
+const tools = [
+  "React",
+  "Next.js",
+  "Tailwind",
+  "Framer Motion",
+  "p5.js",
+  "Three.js",
+  "Blender",
+  "GLSL",
+  "Figma",
+  "Node.js",
+];
+
+const links = [
+  { label: "Email", href: "mailto:wercche@gmail.com" },
+  { label: "Instagram", href: "https://www.instagram.com/wercche/" },
+  { label: "GitHub", href: "https://github.com/Kmetho" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
 ];
 
 export default function About() {
   return (
     <div className="max-h-screen overflow-y-auto">
-      <section className="px-8 pt-20 pb-16 md:px-16 lg:px-24 max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          <div className="aspect-[3/4] w-full max-w-[280px] mx-auto lg:mx-0 rounded-[var(--radius-lg)] overflow-hidden bg-muted border border-border">
-            <div className="flex h-full w-full items-center justify-center">
-              <span className="text-xs font-medium text-muted-foreground">
-                Your photo here
-              </span>
-            </div>
-          </div>
+      {/* ── hero statement ── */}
+      <section className="px-8 pt-24 pb-20 md:px-16 lg:px-24">
+        <div className="max-w-6xl">
+          <p className="text-xs font-bold uppercase tracking-widest text-primary mb-8">
+            About
+          </p>
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] max-w-4xl">
+            Creative technologist making interfaces that move, respond & feel
+            alive.
+          </h1>
+          <p className="mt-8 text-lg md:text-xl leading-relaxed text-muted-foreground max-w-2xl">
+            I work across web development, generative art, and 3D — building
+            things where code defines rhythm and behavior, not just layout.
+          </p>
+        </div>
+      </section>
 
-          <div className="lg:col-span-2 flex flex-col gap-6">
-            <h1 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl text-foreground">
-              About
-            </h1>
+      <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-            <div className="space-y-5 text-base leading-relaxed max-w-xl text-foreground">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. I am a
-                creative technologist working across web development, generative
-                motion, and 3D.
-              </p>
-              <p className="text-muted-foreground">
-                Sed euismod nisl vel tincidunt luctus. I design interfaces where
-                code defines behavior and rhythm, not just layout. Nunc sapien
-                aliquet nunc, vitae bibendum nisi.
-              </p>
-              <p className="text-muted-foreground">
-                Currently focused on interactive web experiences and expressive
-                systems. Vivamus magna justo, lacinia eget consectetur sed.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3 mt-2">
-              {[
-                { label: "Email", href: "mailto:wercche@gmail.com" },
-                {
-                  label: "Instagram",
-                  href: "https://www.instagram.com/wercche/",
-                },
-                { label: "GitHub", href: "https://github.com/Kmetho" },
-                {
-                  label: "LinkedIn",
-                  href: "https://www.linkedin.com/in/wercche/",
-                },
-              ].map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 bg-muted text-muted-foreground border border-border hover:bg-accent hover:text-accent-foreground hover:border-accent"
+      {/* ── tools — horizontal flow ── */}
+      <section className="px-8 py-16 md:px-16 lg:px-24">
+        <div className="max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16 items-start">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1">
+              Tools & Tech
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {tools.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-full px-5 py-2.5 text-sm font-medium bg-muted text-foreground border border-border transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary"
                 >
-                  {link.label}
-                </a>
+                  {tool}
+                </span>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl h-px bg-border" />
+      <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-      <section className="px-8 py-16 md:px-16 lg:px-24 max-w-5xl mx-auto">
-        <h2 className="mb-8 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          Skills & Tools
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((group) => (
-            <div key={group.category}>
-              <h3 className="font-display text-sm font-bold mb-3">
-                {group.category}
-              </h3>
-              <ul className="flex flex-col gap-2">
-                {group.items.map((skill) => (
-                  <li
-                    key={skill}
-                    className="rounded-[var(--radius-sm)] px-3 py-2 text-sm transition-all duration-200 cursor-default bg-muted text-muted-foreground border border-border hover:bg-accent hover:text-accent-foreground hover:border-accent"
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
+      {/* ── contact ── */}
+      <section className="px-8 py-16 md:px-16 lg:px-24">
+        <div className="max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16 items-start">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1">
+              Get in touch
+            </p>
+            <div className="flex flex-col gap-4">
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between py-4 border-b border-border transition-colors duration-200 hover:border-primary"
+                >
+                  <span className="font-display text-xl md:text-2xl font-bold tracking-tight group-hover:text-primary transition-colors duration-200">
+                    {link.label}
+                  </span>
+                  <span className="text-muted-foreground group-hover:text-primary transition-colors duration-200 text-lg">
+                    →
+                  </span>
+                </a>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
