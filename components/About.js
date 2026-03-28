@@ -58,7 +58,7 @@ export default function About() {
               Currently taking on freelance work and looking for collaborations
               with studios and teams.
               <br />
-              Also open to full-time job.
+              Also open to a full-time position.
             </p>
           </div>
         </div>

@@ -168,13 +168,13 @@ export default function Work() {
           <Section title="Design decisions">
             <p>
               The brief form needed to be simple. I chose a multi-step layout -
-              one batch of inputs per one step, clear progress, no wall of
-              fields. Clients tend to abandon long forms, so breaking it up was
-              a much needed UX decision.
+              one batch of inputs per step, clear progress, no wall of fields.
+              Clients tend to abandon long forms, so breaking it up was a much
+              needed UX decision.
             </p>
             <p>
               The public brief view (what the freelancer shares/references) is
-              intentionally minimal. It needed to be printable, screenshot-able,
+              intentionally minimal. It needed to be printable, screenshottable,
               and readable in a Zoom call. The same goes for the PDF export.
             </p>
             <p>
@@ -186,14 +186,13 @@ export default function Work() {
 
           <Section title="The hardest part">
             <p>
-              Due to the fact that I don't have any dev acquaintances, and I
-              could only count on Calude Code to help me understand all of the
-              back-end shenanigans, everything excluding the front was
-              frustrating.
+              Because I don't have any dev acquaintances, and I could only count
+              on Claude Code to help me understand all of the back-end
+              shenanigans, everything excluding the front was frustrating.
             </p>
             <p>
               Getting Clerk and UploadThing to work together cleanly for
-              example. I waded through a quagmire only be humbled (it was a
+              example. I waded through a quagmire only to be humbled (it was a
               one-line fix).
             </p>
           </Section>
