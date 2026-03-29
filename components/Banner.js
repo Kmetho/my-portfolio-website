@@ -10,18 +10,16 @@ export default function Banner() {
   const track = [...items, ...items, ...items];
 
   return (
-    <div className="glass sticky top-0 z-50 w-full overflow-hidden border-b">
-      <div className="flex w-max animate-marquee">
-        {track.map((text, i) => (
-          <span
-            key={i}
-            className="obvi-wide-bold whitespace-nowrap text-lg md:text-xl uppercase text-foreground/80 mx-6 md:mx-10"
-          >
-            {text}
-            <span className="inline-block w-16 md:w-24" />
-          </span>
-        ))}
-      </div>
+    <div className="flex w-max animate-marquee border-b">
+      {track.map((text, i) => (
+        <span
+          key={i}
+          className="obvi-wide-bold whitespace-nowrap text-lg md:text-xl uppercase text-foreground/80 mx-6 md:mx-10"
+        >
+          {text}
+          <span className="inline-block w-16 md:w-24" />
+        </span>
+      ))}
     </div>
   );
 }

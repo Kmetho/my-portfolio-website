@@ -15,7 +15,7 @@ export default function Nav({ current }) {
   const activeKey = hovered || current;
 
   return (
-    <nav className="glass sticky top-0 z-40 flex items-center justify-between px-6 py-4 md:px-16 lg:px-24 md:py-5 border-b">
+    <nav className="z-40 flex items-center justify-between px-6 py-4 md:px-16 lg:px-24 md:py-5 border-b">
       <a
         href="/"
         className="font-display text-lg font-black tracking-tight hover:text-primary transition-colors duration-200 hidden md:block"

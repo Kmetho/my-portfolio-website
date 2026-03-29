@@ -5,7 +5,9 @@ import ContactBlob from "../components/ContactBlob";
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen bg-background">
-      <Banner />
+      <div className="glass sticky top-0 z-50 w-full overflow-hidden">
+        <Banner />
+      </div>
       <HeroTypography />
       <div className="fixed bottom-8 left-8 z-10 flex flex-col gap-2">
         <a
