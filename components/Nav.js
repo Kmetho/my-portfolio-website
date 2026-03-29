@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Nav({ current }) {
   const links = [
@@ -32,6 +33,7 @@ export default function Nav({ current }) {
         className="flex items-center gap-4 md:gap-6"
         onMouseLeave={() => setHovered(null)}
       >
+        <ThemeToggle />
         {links.map((link) => {
           const key = link.label.toLowerCase();
           const isActive = activeKey === key;
