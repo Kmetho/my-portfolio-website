@@ -4,6 +4,7 @@ import ContactBlob from "./ContactBlob";
 import FadeIn from "./motion/FadeIn";
 import PageTransition from "./motion/PageTransition";
 import Slideshow from "./Slideshow";
+import LazyVideo from "./LazyVideo";
 
 const blenderRenders = [
   {
@@ -62,6 +63,32 @@ export default function Experiments() {
                 <Slideshow images={blenderRenders} interval={1000} />
                 <p className="mt-3 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
                   Blender renders
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground max-w-sm">
+                  Scenes modelled and lit in Blender, with final colour grading and compositing in Adobe Creative Suite.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+
+        <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
+
+        <div className="px-8 py-16 md:px-16 lg:px-24">
+          <div className="max-w-6xl">
+            <FadeIn delay={0.1}>
+              <div className="max-w-2xl">
+                <div className="overflow-hidden rounded-[var(--radius)] border border-border bg-card aspect-video">
+                  <LazyVideo
+                    src="/experiments/vis-web.mp4"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="mt-3 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Generative visualization
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground max-w-sm">
+                  Audio-reactive visuals built in TouchDesigner, exploring real-time feedback between sound and geometry.
                 </p>
               </div>
             </FadeIn>
