@@ -4,14 +4,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
-export default function Nav({ current }) {
+interface NavProps {
+  current?: string;
+}
+
+export default function Nav({ current }: NavProps) {
   const links = [
     { label: "Work", href: "/work" },
     { label: "Experiments", href: "/experiments" },
     { label: "About", href: "/about" },
   ];
 
-  const [hovered, setHovered] = useState(null);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const activeKey = hovered || current;
 

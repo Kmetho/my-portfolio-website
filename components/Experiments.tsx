@@ -82,8 +82,7 @@ export default function Experiments() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <p className="text-lg text-muted-foreground max-w-fit">
-                Blender renders, p5.js sketches, and other explorations where
-                code meets aesthetics.
+                My various explorations where code meets aesthetics.
               </p>
             </FadeIn>
           </div>

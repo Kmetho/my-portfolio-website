@@ -11,7 +11,7 @@ const proximityRadius = 200;
 const excitedScale = 1.5;
 
 export default function ContactBlob() {
-  const blobRef = useRef(null);
+  const blobRef = useRef<HTMLButtonElement>(null);
   const [excited, setExcited] = useState(false);
   const [tapped, setTapped] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -23,7 +23,7 @@ export default function ContactBlob() {
   useEffect(() => {
     if (isTouchDevice) return;
 
-    const handleMove = (e) => {
+    const handleMove = (e: MouseEvent) => {
       if (!blobRef.current) return;
       const rect = blobRef.current.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
@@ -66,7 +66,6 @@ export default function ContactBlob() {
       className="fixed bottom-6 right-6 z-50 cursor-pointer blob-float"
       style={{ background: "none", border: "none", padding: 0 }}
     >
-      {/* whole blob scales on excitement */}
       <div
         className="relative flex items-center justify-center transition-transform duration-500 ease-out"
         style={{
@@ -104,10 +103,9 @@ export default function ContactBlob() {
             letterSpacing: showText ? "0.1em" : "0",
           }}
         >
-          Let's talk!
+          Let&apos;s talk!
         </span>
 
-        {/* mail icon when text is hidden */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

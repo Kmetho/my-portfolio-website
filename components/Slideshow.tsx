@@ -4,8 +4,19 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+interface SlideshowImage {
+  src: string;
+  alt: string;
+}
+
+interface SlideshowProps {
+  images?: SlideshowImage[];
+  interval?: number;
+  className?: string;
+}
+
 const variants = {
-  enter: (direction) => ({
+  enter: (direction: number) => ({
     x: direction > 0 ? 80 : -80,
     opacity: 0,
   }),
@@ -13,7 +24,7 @@ const variants = {
     x: 0,
     opacity: 1,
   },
-  exit: (direction) => ({
+  exit: (direction: number) => ({
     x: direction > 0 ? -80 : 80,
     opacity: 0,
   }),
@@ -23,20 +34,21 @@ export default function Slideshow({
   images = [],
   interval = 1000,
   className = "",
-}) {
+}: SlideshowProps) {
   const [[current, direction], setCurrent] = useState([0, 1]);
   const [paused, setPaused] = useState(false);
-  const timerRef = useRef(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const advance = useCallback(() => {
     setCurrent(([prev]) => [(prev + 1) % images.length, 1]);
   }, [images.length]);
 
-  // auto-advance
   useEffect(() => {
     if (paused || images.length <= 1) return;
     timerRef.current = setInterval(advance, interval);
-    return () => clearInterval(timerRef.current);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, [paused, advance, interval, images.length]);
 
   if (!images.length) return null;
@@ -47,7 +59,6 @@ export default function Slideshow({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-
       <div className="relative aspect-[2/3] w-full">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.div

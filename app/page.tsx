@@ -1,7 +1,7 @@
-import Banner from "../components/Banner";
-import HeroTypography from "../components/HeroTypography";
-import ContactBlob from "../components/ContactBlob";
-import ThemeToggle from "../components/ThemeToggle";
+import Banner from "@/components/Banner";
+import HeroTypography from "@/components/HeroTypography";
+import ContactBlob from "@/components/ContactBlob";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
