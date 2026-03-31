@@ -14,25 +14,13 @@ export function ExperimentCard({ experiment }: { experiment: Experiment }) {
     >
       <article className="relative">
         <div className="relative aspect-video overflow-hidden rounded-xl">
-
-          {experiment.livePreview && experiment.slug ? (
-            <iframe
-              src={`/experiments/${experiment.slug}`}
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              tabIndex={-1}
-              aria-hidden
-              loading="lazy"
-            />
-          ) : (
-            <Image
-              src={experiment.thumbnail}
-              alt={experiment.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          )}
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" /> */}
+          <Image
+            src={experiment.thumbnail}
+            alt={experiment.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
@@ -46,7 +34,6 @@ export function ExperimentCard({ experiment }: { experiment: Experiment }) {
             {experiment.title}
           </h3>
           <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-
             {experiment.description}
           </p>
           <div className="flex flex-wrap gap-2 mt-3">

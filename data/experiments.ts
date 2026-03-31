@@ -33,29 +33,6 @@ const photos = [
   },
 ];
 
-const blenderRenders = [
-  {
-    src: "https://64.media.tumblr.com/f2667b5002c0e07125962b43ba7ddc59/2dae4127e7f629cb-ff/s2048x3072/2608d72444e76d88f38e127c0668b82ed8396ca7.pnj",
-    alt: "Blender render 1",
-  },
-  {
-    src: "https://64.media.tumblr.com/5b25054ecd2377ef94855f554784ddd0/49153f79c104ee77-30/s640x960/01b5460ae8416fa0d88ddf293e6ae65bfe82e220.pnj",
-    alt: "Blender render 2",
-  },
-  {
-    src: "https://64.media.tumblr.com/0e17e172dddefab765787bffade03146/90ddb00def9dfeb5-a4/s2048x3072/627395f504ffdd6f2e02f1da1fb8b87cb9e5289f.pnj",
-    alt: "Blender render 3",
-  },
-  {
-    src: "https://64.media.tumblr.com/e372ae57edae74bfab6deef76cc605e3/ac038d8a3a3c7b32-75/s2048x3072/4c8a733d85a51824ff1d7d53db2fbb7601469ad7.pnj",
-    alt: "Blender render 4",
-  },
-  {
-    src: "https://64.media.tumblr.com/abda532ea8c4ed0a90e712b5073b88c4/f77a01acf381f610-62/s2048x3072/7e95733d6aa55be9d8354114b869ab218865cd1f.pnj",
-    alt: "Blender render 5",
-  },
-];
-
 export type ExperimentType = "interactive" | "visual";
 
 export interface Experiment {
@@ -66,20 +43,13 @@ export interface Experiment {
   tags: string[];
   thumbnail: string;
   featured?: boolean;
-
-  // Only for interactive experiments
   slug?: string;
   liveUrl?: string;
-
-  livePreview?: boolean;
-
-  // Only for visual work
-  fullImage?: string;
+  image?: string;
   medium?: string;
 }
 
 export const experiments: Experiment[] = [
-  // === FEATURED INTERACTIVE EXPERIMENTS ===
   {
     id: "digital-zine",
     title: "Cyber Love Poems",
@@ -88,10 +58,9 @@ export const experiments: Experiment[] = [
     type: "interactive",
     tags: ["React Three Fiber", "GSAP", "Poetry", "3D"],
 
-    thumbnail: "/thumbnails/digital-zine-thumb.jpg",
+    thumbnail: "/thumbnails/synth-kit-thumb.jpg",
     slug: "digital-zine",
     featured: true,
-    livePreview: false,
   },
   {
     id: "synth-kit",
@@ -103,11 +72,7 @@ export const experiments: Experiment[] = [
     thumbnail: "/thumbnails/synth-kit-thumb.jpg",
     slug: "synth-kit",
     featured: true,
-    livePreview: false,
   },
-
-  // visual work
-  // replace placeholder titles
   {
     id: "visual-01",
     title: "Untitled 01",
@@ -115,7 +80,8 @@ export const experiments: Experiment[] = [
     type: "visual",
     tags: ["Blender"],
     thumbnail: "/experiments/01.webp",
-    fullImage: "/experiments/01-full.webp",
+    image:
+      "https://64.media.tumblr.com/f2667b5002c0e07125962b43ba7ddc59/2dae4127e7f629cb-ff/s2048x3072/2608d72444e76d88f38e127c0668b82ed8396ca7.pnj",
     medium: "Blender",
   },
   {
@@ -125,7 +91,8 @@ export const experiments: Experiment[] = [
     type: "visual",
     tags: ["Blender"],
     thumbnail: "/experiments/02.webp",
-    fullImage: "/experiments/02-full.webp",
+    image:
+      "https://64.media.tumblr.com/5b25054ecd2377ef94855f554784ddd0/49153f79c104ee77-30/s640x960/01b5460ae8416fa0d88ddf293e6ae65bfe82e220.pnj",
     medium: "Blender",
   },
   {
@@ -135,7 +102,8 @@ export const experiments: Experiment[] = [
     type: "visual",
     tags: ["Blender"],
     thumbnail: "/experiments/03.webp",
-    fullImage: "/experiments/03-full.webp",
+    image:
+      "https://64.media.tumblr.com/0e17e172dddefab765787bffade03146/90ddb00def9dfeb5-a4/s2048x3072/627395f504ffdd6f2e02f1da1fb8b87cb9e5289f.pnj",
     medium: "Blender",
   },
   {
@@ -145,7 +113,8 @@ export const experiments: Experiment[] = [
     type: "visual",
     tags: ["Blender"],
     thumbnail: "/experiments/04.webp",
-    fullImage: "/experiments/04-full.webp",
+    image:
+      "https://64.media.tumblr.com/e372ae57edae74bfab6deef76cc605e3/ac038d8a3a3c7b32-75/s2048x3072/4c8a733d85a51824ff1d7d53db2fbb7601469ad7.pnj",
     medium: "Blender",
   },
   {
@@ -155,38 +124,9 @@ export const experiments: Experiment[] = [
     type: "visual",
     tags: ["p5.js"],
     thumbnail: "/experiments/05.webp",
-    fullImage: "/experiments/05-full.webp",
+    image:
+      "https://64.media.tumblr.com/abda532ea8c4ed0a90e712b5073b88c4/f77a01acf381f610-62/s2048x3072/7e95733d6aa55be9d8354114b869ab218865cd1f.pnj",
     medium: "p5.js",
-  },
-  {
-    id: "visual-06",
-    title: "Untitled 06",
-    description: "p5.js sketch",
-    type: "visual",
-    tags: ["p5.js"],
-    thumbnail: "/experiments/06.webp",
-    fullImage: "/experiments/06-full.webp",
-    medium: "p5.js",
-  },
-  {
-    id: "visual-07",
-    title: "Untitled 07",
-    description: "Blender render",
-    type: "visual",
-    tags: ["Blender"],
-    thumbnail: "/experiments/07.webp",
-    fullImage: "/experiments/07-full.webp",
-    medium: "Blender",
-  },
-  {
-    id: "visual-08",
-    title: "Untitled 08",
-    description: "Blender render",
-    type: "visual",
-    tags: ["Blender"],
-    thumbnail: "/experiments/08.webp",
-    fullImage: "/experiments/08-full.webp",
-    medium: "Blender",
   },
 ];
 
