@@ -1,12 +1,8 @@
 import { notFound } from "next/navigation";
-<<<<<<< Updated upstream
-import { getExperimentBySlug, getInteractiveExperiments } from "@/data/experiments";
-=======
 import {
   getExperimentBySlug,
   getInteractiveExperiments,
 } from "@/data/experiments";
->>>>>>> Stashed changes
 import type { Metadata } from "next";
 
 interface Props {
@@ -42,12 +38,6 @@ export default async function ExperimentSlugPage({ params }: Props) {
     notFound();
   }
 
-<<<<<<< Updated upstream
-  // For now, this is a fallback for future interactive experiments
-  // that don't need a full folder structure.
-  // Complex experiments (synth-kit, digital-zine) have their own folders.
-=======
->>>>>>> Stashed changes
   return (
     <main className="h-screen flex items-center justify-center bg-background text-foreground">
       <div className="text-center px-8">
