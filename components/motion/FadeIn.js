@@ -3,18 +3,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/*
-  Reusable scroll-triggered reveal.
-  Props:
-    - direction: "up" | "down" | "left" | "right" (default "up")
-    - delay: seconds (default 0)
-    - duration: seconds (default 0.6)
-    - distance: pixels to travel (default 30)
-    - once: trigger only once (default true)
-    - className: passthrough
-    - as: element type string like "section", "div", "li" (default "div")
-*/
-
 const directionMap = {
   up: { y: 1, x: 0 },
   down: { y: -1, x: 0 },

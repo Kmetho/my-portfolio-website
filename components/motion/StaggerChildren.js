@@ -3,16 +3,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/*
-  Wraps children and staggers their entrance.
-  Each direct child gets a delay offset.
-  Props:
-    - stagger: seconds between each child (default 0.08)
-    - duration: animation duration per child (default 0.5)
-    - once: trigger only once (default true)
-    - className: passthrough
-*/
-
 export default function StaggerChildren({
   children,
   stagger = 0.08,

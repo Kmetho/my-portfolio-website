@@ -2,11 +2,6 @@
 
 import { motion } from "framer-motion";
 
-/*
-  Wrap page content for a fade + slide entrance.
-  Usage: <PageTransition>...page content...</PageTransition>
-*/
-
 export default function PageTransition({ children, className = "" }) {
   return (
     <motion.div
