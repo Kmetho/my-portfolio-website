@@ -1,16 +1,5 @@
 "use client";
 
-<<<<<<< Updated upstream
-import ExperimentBackLink from "@/components/ExperimentBackLink";
-
-export default function SynthKitExperience() {
-  return (
-    <div className="h-screen w-screen bg-black text-white flex items-center justify-center">
-      <ExperimentBackLink />
-      <p className="text-white/40 text-sm">
-        Crystal synth kit — awaiting migration
-      </p>
-=======
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -532,7 +521,6 @@ export default function SynthKitExperience() {
           tap a crystal to play
         </p>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 }
