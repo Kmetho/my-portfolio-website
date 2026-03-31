@@ -27,7 +27,7 @@ const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
 ];
 
-function Section({ title, children }) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <FadeIn>
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
@@ -56,7 +56,7 @@ export default function About() {
             <div className="max-w-2xl space-y-5 text-base md:text-lg leading-relaxed text-foreground/85">
               <FadeIn delay={0.1}>
                 <p>
-                  I'm a Media Arts student based in Poland, working across web
+                  I&apos;m a Media Arts student based in Poland, working across web
                   development and design, 3D, and other visuals. Most of my time
                   goes into building things that are simply fun and functional.
                   Both in real life and in cyberspace.
@@ -66,7 +66,7 @@ export default function About() {
                 <p>
                   My studies sit at the intersection of art and technology, which
                   is how I ended up caring equally about clean code and beautiful
-                  craft. I'm drawn to projects where those two things aren't
+                  craft. I&apos;m drawn to projects where those two things aren&apos;t
                   separate.
                 </p>
               </FadeIn>
@@ -84,7 +84,6 @@ export default function About() {
 
         <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-        {/* tools — scatter to grid */}
         <section className="px-8 py-16 md:px-16 lg:px-24">
           <div className="max-w-6xl">
             <Section title="Tools & Tech">
@@ -103,7 +102,6 @@ export default function About() {
 
         <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
 
-        {/* contact links — staggered entrance */}
         <section className="px-8 py-16 md:px-16 lg:px-24">
           <div className="max-w-6xl">
             <Section title="Get in touch">

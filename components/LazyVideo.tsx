@@ -2,9 +2,15 @@
 
 import { useRef, useEffect, useState } from "react";
 
-export default function LazyVideo({ src, className = "", poster }) {
-  const videoRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+interface LazyVideoProps {
+  src: string;
+  className?: string;
+  poster?: string;
+}
+
+export default function LazyVideo({ src, className = "", poster }: LazyVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [, setIsVisible] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -15,21 +21,16 @@ export default function LazyVideo({ src, className = "", poster }) {
         setIsVisible(entry.isIntersecting);
 
         if (entry.isIntersecting) {
-          // start loading + playing
           if (!video.src) {
             video.src = src;
             video.load();
           }
-          video.play().catch(() => {
-            // autoplay blocked — that's fine, user can interact
-          });
+          video.play().catch(() => {});
         } else {
-          // pause when out of view to save CPU/battery
           video.pause();
         }
       },
       {
-        // start loading slightly before it's visible (200px margin)
         rootMargin: "200px 0px",
         threshold: 0.1,
       },

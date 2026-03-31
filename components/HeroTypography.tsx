@@ -1,41 +1,45 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const name = "wercche";
 
-const letterVariants = {
-  hidden: { opacity: 0, y: 60, rotateX: -90 },
-  visible: (i) => ({
+const letterVariants: Variants = {
+  hidden: (i: number) => ({
+    opacity: 0,
+    y: 60,
+    rotateX: -90,
+  }),
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     rotateX: 0,
     transition: {
       duration: 0.7,
       delay: 0.3 + i * 0.08,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: "easeInOut",
     },
   }),
 };
 
-const subtitleVariants = {
+const subtitleVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: 1.1, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.6, delay: 1.1, ease: "easeInOut" },
   },
 };
 
 export default function HeroTypography() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if ("ontouchstart" in window) return;
 
-    const handleMove = (e) => {
+    const handleMove = (e: MouseEvent) => {
       const nx = (e.clientX / window.innerWidth - 0.5) * 3;
       const ny = (e.clientY / window.innerHeight - 0.5) * 3;
       setTilt({ x: nx, y: ny });
