@@ -28,7 +28,7 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
             className="group relative aspect-square overflow-hidden rounded-lg focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Image
-              src={item.thumbnail}
+              src={item.image || item.thumbnail}
               alt={item.title}
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
@@ -50,7 +50,6 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
         ))}
       </div>
 
-      {/* Lightbox modal */}
       {selected && (
         <div
           className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-6 md:p-8"
@@ -61,11 +60,11 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={selected.fullImage || selected.thumbnail}
+              src={selected.image || selected.thumbnail}
               alt={selected.title}
               width={1920}
               height={1080}
-              className="w-full h-auto rounded-lg"
+              className="w-auto h-auto rounded-lg"
             />
             <div className="mt-4 flex justify-between items-start">
               <div>

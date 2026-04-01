@@ -58,7 +58,7 @@ export const experiments: Experiment[] = [
     type: "interactive",
     tags: ["React Three Fiber", "GSAP", "Poetry", "3D"],
 
-    thumbnail: "/thumbnails/synth-kit-thumb.jpg",
+    thumbnail: "/thumbnails/digital-zine-thumb.png",
     slug: "digital-zine",
     featured: true,
   },

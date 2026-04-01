@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SynthKitLoader from "./components/SynthKitLoader";
+import SynthKitLoader from "@/components/synth-kit/SynthKitLoader";
 
 export const metadata: Metadata = {
   title: "Crystal Synth Kit",

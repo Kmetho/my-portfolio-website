@@ -103,7 +103,7 @@ export default function ContactBlob() {
             letterSpacing: showText ? "0.1em" : "0",
           }}
         >
-          Let&apos;s talk!
+          Let's talk!
         </span>
 
         <svg

@@ -77,7 +77,7 @@ export default function ExperimentsPage() {
           <div className="max-w-6xl">
             <FadeIn delay={0.1}>
               <div className="max-w-2xl">
-                <div className="overflow-hidden rounded-[var(--radius)] border border-border bg-card aspect-video">
+                <div className="overflow-hidden rounded-(--radius) border border-border bg-card aspect-video">
                   <LazyVideo
                     src="/experiments/vis-web.mp4"
                     className="w-full h-full object-cover"
