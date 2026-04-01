@@ -21,8 +21,8 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import * as THREE from "three";
+import { poems } from "@/data/poems";
 
-// --- 1. GLSL NOISE CHUNK ---
 const SIMPLEX_NOISE_GLSL = `
 vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
 vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
@@ -68,68 +68,6 @@ float snoise(vec3 v){
   return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
 }
 `;
-
-// --- 2. DATA ---
-const poems = [
-  {
-    id: "cover",
-    title: "cyber love poems",
-    text: "a forever growing collection\nby Weronika Kmieć",
-    textColor: "#d4789c",
-    isCover: true,
-    bgColor: "#e0ddd2",
-  },
-  {
-    id: "p1",
-    title: "new era",
-    text: "Navigating the syntax\nof a modern romance.",
-    textColor: "#4a4050",
-    bgColor: "#d1c9d6",
-  },
-  {
-    id: "p2",
-    title: "navigating",
-    text: "We find ourselves in the static.",
-    textColor: "#ffffff",
-    bgColor: "#b4bcc8",
-  },
-  {
-    id: "p3",
-    title: "spread 1",
-    text: "Blue-tinted pixels bleeding\ninto an ice-blue sea.",
-    textColor: "#6878a0",
-    bgColor: "#bfccd9",
-  },
-  {
-    id: "p4",
-    title: "spread 2",
-    text: "Analyzing the frequency.",
-    text: "This is a longer analysis\nthat spans across the digital plains.",
-    textColor: "#6878a0",
-    bgColor: "#bfccd9",
-  },
-  {
-    id: "p5",
-    title: "analyzing",
-    text: "Sage-gray fragments glowing.",
-    textColor: "#ffffff",
-    bgColor: "#b8c0ba",
-  },
-  {
-    id: "p6",
-    title: "are our scripts",
-    text: "Written in the clouds.",
-    textColor: "#4a4050",
-    bgColor: "#cdc8c2",
-  },
-  {
-    id: "p7",
-    title: "my ethereal land",
-    text: "Endless pale green horizons.",
-    textColor: "#ffffff",
-    bgColor: "#bcc2bc",
-  },
-];
 
 const SCENE_SPACING = 20; // Distance between each scene on the X axis
 const TOTAL_HORIZONTAL_SPAN = (poems.length - 1) * SCENE_SPACING; // Total X distance the camera travels
@@ -231,8 +169,8 @@ function EnvironmentLayer() {
     const nextPoemIndex = Math.min(currentPoemIndex + 1, poems.length - 1);
     const lerpFactor = normalizedScroll - currentPoemIndex;
 
-    const c1 = new THREE.Color(poems[currentPoemIndex].bgColor);
-    const c2 = new THREE.Color(poems[nextPoemIndex].bgColor);
+    const c1 = new THREE.Color(poems[currentPoemIndex].atmosphere.fogColor);
+    const c2 = new THREE.Color(poems[nextPoemIndex].atmosphere.fogColor);
     const currentFogColor = c1.lerp(c2, lerpFactor);
 
     if (!scene.fog) scene.fog = new THREE.Fog(currentFogColor.getHex(), 8, 25);
@@ -389,7 +327,7 @@ function OrganicClusters({ poem, index }: { poem: any; index: number }) {
       <Html
         position={[0, 0, 3]}
         center
-        className="pointer-events-none w-[90vw] max-w-[600px] text-center"
+        className="pointer-events-none w-[90vw] max-w-150 text-center"
       >
         {poem.isCover ? (
           <h1
