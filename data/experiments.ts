@@ -122,11 +122,11 @@ export const experiments: Experiment[] = [
     title: "Untitled 05",
     description: "p5.js sketch",
     type: "visual",
-    tags: ["p5.js"],
+    tags: ["Blender"],
     thumbnail: "/experiments/05.webp",
     image:
       "https://64.media.tumblr.com/abda532ea8c4ed0a90e712b5073b88c4/f77a01acf381f610-62/s2048x3072/7e95733d6aa55be9d8354114b869ab218865cd1f.pnj",
-    medium: "p5.js",
+    medium: "Blender",
   },
 ];
 
