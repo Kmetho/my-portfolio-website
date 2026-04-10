@@ -235,7 +235,7 @@ export default function SynthKitExperience() {
         osc3.stop(now + 2.0);
       }
 
-      // --- Halos ---
+      // halos
       const activeHalos: { mesh: THREE.Mesh; age: number }[] = [];
 
       function spawnHalo(crystal: THREE.Mesh) {
@@ -265,7 +265,7 @@ export default function SynthKitExperience() {
         if (mesh) spawnHalo(mesh);
       }
 
-      // --- Event handlers ---
+      // event handlers
       function onMouseMove(event: MouseEvent) {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -335,8 +335,8 @@ export default function SynthKitExperience() {
       const mixers: (THREE.AnimationMixer | null)[] = [];
       const loader = new GLTFLoader();
 
-      crystalNames.forEach((name, index) => {
-        const material = materials[index];
+      crystalNames.forEach((name, i) => {
+        const material = materials[i];
         loader.load(
           `${ASSET_BASE}/glb/${name}.glb`,
           (gltf) => {
@@ -347,17 +347,17 @@ export default function SynthKitExperience() {
                 mesh.material = material;
                 crystalMeshes.push(mesh);
                 originalEmissives.set(mesh, material.emissive.clone());
-                crystalNoteMap.set(mesh, index);
+                crystalNoteMap.set(mesh, i);
               }
             });
             scene.add(gltf.scene);
-            mixers[index] = new THREE.AnimationMixer(gltf.scene);
+            mixers[i] = new THREE.AnimationMixer(gltf.scene);
             const clips = gltf.animations;
             const clip = THREE.AnimationClip.findByName(
               clips,
               `${name}-action`,
             );
-            if (clip) mixers[index]!.clipAction(clip).play();
+            if (clip) mixers[i]!.clipAction(clip).play();
           },
           undefined,
           (error) => {
