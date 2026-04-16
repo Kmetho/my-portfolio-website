@@ -22,12 +22,17 @@ const tools = [
 
 const links = [
   { label: "Email", href: "mailto:wercche@gmail.com" },
-  { label: "Instagram", href: "https://www.instagram.com/wercche/" },
   { label: "GitHub", href: "https://github.com/Kmetho" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
 ];
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <FadeIn>
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
@@ -56,7 +61,7 @@ export default function About() {
             <div className="max-w-2xl space-y-5 text-base md:text-lg leading-relaxed text-foreground/85">
               <FadeIn delay={0.1}>
                 <p>
-                  I&apos;m a Media Arts student based in Poland, working across web
+                  I'm a Media Arts student based in Poland, working across web
                   development and design, 3D, and other visuals. Most of my time
                   goes into building things that are simply fun and functional.
                   Both in real life and in cyberspace.
@@ -64,10 +69,10 @@ export default function About() {
               </FadeIn>
               <FadeIn delay={0.2}>
                 <p>
-                  My studies sit at the intersection of art and technology, which
-                  is how I ended up caring equally about clean code and beautiful
-                  craft. I&apos;m drawn to projects where those two things aren&apos;t
-                  separate.
+                  My studies sit at the intersection of art and technology,
+                  which is how I ended up caring equally about clean code and
+                  beautiful craft. I'm drawn to projects where those two things
+                  aren't separate.
                 </p>
               </FadeIn>
               <FadeIn delay={0.3}>
