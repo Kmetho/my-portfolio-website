@@ -36,4 +36,18 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Kmetho/briefed-shadcn",
     featured: true,
   },
+
+  {
+    slug: "webfolio",
+    title: "Personal portfolio website",
+    description:
+      "A personal portfolio website built to not work in hospitality anymore, change my life, showcase my skills and to have a better quality of life.",
+    year: "2026",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind", "Vercel"],
+    role: "fullstack, UX/UI",
+    thumbnail: "/thumbnails/webfolio-thumb.jpg",
+    liveUrl: "https://wercche.xyz/",
+    githubUrl: "https://github.com/Kmetho/my-portfolio-website",
+    featured: true,
+  },
 ];

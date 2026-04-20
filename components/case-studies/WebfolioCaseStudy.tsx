@@ -5,23 +5,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import FadeIn from "../motion/FadeIn";
 
-const briefedScreens = [
-  {
-    src: "/homepage-no-user.jpg",
-    alt: "Briefed landing page - Stop losing briefs in your DMs",
-    caption: "Landing",
-  },
-  {
-    src: "/homepage-user.jpg",
-    alt: "Briefed logged-in homepage - Your briefs, all in one place",
-    caption: "Home",
-  },
-  {
-    src: "/dashboard.jpg",
-    alt: "Briefed dashboard - My Briefs with status filters and brief cards",
-    caption: "Dashboard",
-  },
-];
 
 function Section({
   title,
@@ -48,50 +31,50 @@ function Section({
   );
 }
 
-function ParallaxScreen({
-  screen,
-  index,
-}: {
-  screen: (typeof briefedScreens)[number];
-  index: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+// function ParallaxScreen({
+//   screen,
+//   index,
+// }: {
+//   screen: (typeof briefedScreens)[number];
+//   index: number;
+// }) {
+//   const ref = useRef<HTMLDivElement>(null);
+//   const { scrollYProgress } = useScroll({
+//     target: ref,
+//     offset: ["start end", "end start"],
+//   });
 
-  const speeds = [-20, -35, -20];
-  const y = useTransform(scrollYProgress, [0, 1], [0, speeds[index] || -20]);
+//   const speeds = [-20, -35, -20];
+//   const y = useTransform(scrollYProgress, [0, 1], [0, speeds[index] || -20]);
 
-  return (
-    <motion.div ref={ref} style={{ y }} className="flex flex-col gap-3">
-      <div className="relative overflow-hidden rounded-(--radius) border border-border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-        <Image
-          src={screen.src}
-          alt={screen.alt}
-          width={390}
-          height={844}
-          className="w-full h-auto"
-        />
-      </div>
-      <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-        {screen.caption}
-      </span>
-    </motion.div>
-  );
-}
+//   return (
+//     <motion.div ref={ref} style={{ y }} className="flex flex-col gap-3">
+//       <div className="relative overflow-hidden rounded-(--radius) border border-border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+//         <Image
+//           src={screen.src}
+//           alt={screen.alt}
+//           width={390}
+//           height={844}
+//           className="w-full h-auto"
+//         />
+//       </div>
+//       <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+//         {screen.caption}
+//       </span>
+//     </motion.div>
+//   );
+// }
 
-export default function BriefedCaseStudy() {
+export default function WebfolioCaseStudy() {
   return (
     <>
       <div className="px-8 pb-16 md:px-16 lg:px-24">
         <div className="max-w-6xl">
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
+          {/* <div className="grid grid-cols-3 gap-4 md:gap-6">
             {briefedScreens.map((screen, i) => (
               <ParallaxScreen key={screen.src} screen={screen} index={i} />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 

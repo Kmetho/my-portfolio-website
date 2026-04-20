@@ -22,19 +22,14 @@ export default function ExperimentsPage() {
         <section className="px-8 pt-24 pb-16 md:px-16 lg:px-24">
           <div className="max-w-6xl">
             <FadeIn delay={0}>
-              <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-5">
                 Media Arts
               </p>
             </FadeIn>
             <FadeIn delay={0.1}>
-              <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tight leading-[1.05] max-w-4xl mb-6">
-                3D, generative & visual experiments.
+              <h1 className="text-sm max-w-4xl">
+                3D, generative & visual experiments
               </h1>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-lg text-muted-foreground max-w-2xl">
-                Various explorations where code meets aesthetics.
-              </p>
             </FadeIn>
           </div>
         </section>
@@ -83,7 +78,7 @@ export default function ExperimentsPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="mt-3 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                <p className="mt-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   Generative visualization
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground max-w-sm">

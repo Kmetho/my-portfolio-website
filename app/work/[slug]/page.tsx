@@ -6,10 +6,12 @@ import ContactBlob from "@/components/ContactBlob";
 import FadeIn from "@/components/motion/FadeIn";
 import PageTransition from "@/components/motion/PageTransition";
 import BriefedCaseStudy from "@/components/case-studies/BriefedCaseStudy";
+import WebfolioCaseStudy from "@/components/case-studies/WebfolioCaseStudy";
 import { projects } from "@/data/projects";
 
 const caseStudies: Record<string, React.ComponentType> = {
   briefed: BriefedCaseStudy,
+  webfolio: WebfolioCaseStudy,
 };
 
 export function generateStaticParams() {
@@ -53,7 +55,7 @@ export default async function ProjectPage({
             <div className="max-w-6xl">
               <FadeIn delay={0}>
                 <div className="flex items-center gap-4 mb-6">
-                  <span className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest bg-primary text-primary-foreground">
+                  <span className="rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest bg-primary text-primary-foreground">
                     Case Study
                   </span>
                   <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -63,15 +65,13 @@ export default async function ProjectPage({
               </FadeIn>
 
               <FadeIn delay={0.1}>
-                <h1 className="italic text-xl md:text-3xl lg:text-4xl tracking-tight mb-6">
+                <h1 className="uppercase font-bold text-primary tracking-tight mb-2">
                   {project.title}
                 </h1>
               </FadeIn>
 
               <FadeIn delay={0.2}>
-                <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl mb-10">
-                  {project.description}
-                </p>
+                <p className="max-w-2xl mb-10">{project.description}</p>
               </FadeIn>
 
               <FadeIn delay={0.3}>
@@ -81,7 +81,7 @@ export default async function ProjectPage({
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-primary text-primary-foreground hover:shadow-[0_8px_32px_var(--glow-primary)]"
+                      className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 text-foreground hover:text-primary"
                     >
                       Try it live&ensp;&rarr;
                     </a>
@@ -91,7 +91,7 @@ export default async function ProjectPage({
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 border border-border text-foreground hover:bg-muted"
+                      className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 text-foreground hover:text-primary"
                     >
                       GitHub
                     </a>
