@@ -36,7 +36,7 @@ export default function About() {
               About
             </p>
           </FadeIn>
-          <div className="font-serif max-w-[70ch] space-y-6 text-lg md:text-xl leading-relaxed text-foreground">
+          <div className="font-sans max-w-[70ch] space-y-6 text-lg md:text-xl leading-relaxed text-foreground">
             <FadeIn delay={0.1}>
               <p>
                 Media Arts student working across the web, 3D, and other
@@ -46,7 +46,7 @@ export default function About() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <p>
-                My studies sit at the intersection of art and technology. I&apos;m
+                My studies sit at the intersection of art and technology. I'm
                 drawn to projects where those two things align.
               </p>
             </FadeIn>

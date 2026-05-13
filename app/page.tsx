@@ -13,19 +13,19 @@ export default function Home() {
       <div className="fixed bottom-8 left-8 z-10 flex flex-col gap-2 items-start">
         <a
           href="/work"
-          className="obvi-extended-super-italic text-xs font-bold uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
+          className="font-serif text-s uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
         >
           Work
         </a>
         <a
           href="/experiments"
-          className="obvi-extended-super-italic text-xs font-bold uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
+          className="font-serif text-s uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
         >
           Experiments
         </a>
         <a
           href="/about"
-          className="obvi-extended-super-italic text-xs font-bold uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
+          className="font-serif text-s uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
         >
           About
         </a>

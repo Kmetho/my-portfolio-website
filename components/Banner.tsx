@@ -14,7 +14,7 @@ export default function Banner() {
       {track.map((text, i) => (
         <span
           key={i}
-          className="obvi-wide-bold whitespace-nowrap text-lg md:text-xl uppercase text-foreground mx-6 md:mx-10 py-1"
+          className="font-sans font-medium whitespace-nowrap text-lg md:text-xl uppercase text-foreground mx-6 md:mx-10 py-1"
         >
           {text}
           <span className="inline-block w-16 md:w-24" />

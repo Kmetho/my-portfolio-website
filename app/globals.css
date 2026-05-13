@@ -3,19 +3,15 @@
 
 @layer base {
   :root {
-    /* core monochrome */
     --foreground: #040404;
     --background: #ffffff;
 
-    /* accents — used sparingly (1–2 moments per view) */
     --signal: #09e85e;
     --mist: #9d8df1;
     --ember: #ff7f11;
 
-    /* derived */
     --border: rgba(4, 4, 4, 0.1);
 
-    /* shape + motion */
     --radius: 1rem;
     --radius-sm: 0.5rem;
     --radius-lg: 1.75rem;
@@ -53,11 +49,9 @@
 }
 
 @theme {
-  /* fonts — wired in layout.tsx via next/font */
   --font-serif: var(--font-young-serif), Georgia, serif;
   --font-sans: obviously-variable, system-ui, sans-serif;
 
-  /* colors — only foreground/background + 3 accents */
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-signal: var(--signal);
@@ -82,7 +76,7 @@ body {
   font-family: var(--font-serif);
 }
 
-/* ── marquee ── */
+/* marquee */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -101,7 +95,7 @@ body {
   animation-play-state: paused;
 }
 
-/* ── blob ── */
+/* blob */
 @keyframes blob-float {
   0%,
   100% {
@@ -116,7 +110,7 @@ body {
   animation: blob-float 3s ease-in-out infinite;
 }
 
-/* ── hero overlay (used by HeroTypography) ── */
+/* hero overlay */
 .hero-overlay {
   background: rgba(255, 255, 255, 0.15);
 }
@@ -126,7 +120,7 @@ body {
   background: rgba(4, 4, 4, 0.6);
 }
 
-/* ── glass surfaces (nav + banner) ── */
+/* glass */
 .glass {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px);
