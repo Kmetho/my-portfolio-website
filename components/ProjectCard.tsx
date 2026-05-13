@@ -16,50 +16,48 @@ export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
     <FadeIn delay={delay}>
       <Link href={`/work/${project.slug}`} className="group block">
         <motion.article
-          className={`overflow-hidden rounded-[var(--radius)] border border-border bg-card transition-colors duration-300 group-hover:border-primary/30 ${
-            project.featured ? "col-span-full" : ""
-          }`}
+          className="overflow-hidden border-t border-border"
           whileHover={{ y: -4 }}
           transition={{ duration: 0.25 }}
         >
-          <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+          <div className="relative aspect-16/10 overflow-hidden bg-background">
             <Image
               src={project.thumbnail}
               alt={`${project.title} preview`}
               fill
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02] loading-eager"
             />
           </div>
 
-          <div className="p-6 md:p-8">
+          <div className="py-6 md:py-8">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-primary">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">
                 Case Study
               </span>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">
                 {project.year}
               </span>
             </div>
 
-            <h2 className="italic text-xl md:text-2xl tracking-tight mb-2">
+            <h2 className="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] mb-3 text-foreground">
               {project.title}
             </h2>
 
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-xl">
+            <p className="text-base md:text-lg leading-relaxed text-foreground max-w-[70ch] mb-4">
               {project.description}
             </p>
 
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
               {project.tags.slice(0, 6).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full px-2.5 py-0.5 text-[11px] font-medium bg-muted text-muted-foreground border border-border"
+                  className="text-[11px] font-medium text-foreground"
                 >
                   {tag}
                 </span>
               ))}
               {project.tags.length > 6 && (
-                <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                <span className="text-[11px] font-medium text-foreground">
                   +{project.tags.length - 6}
                 </span>
               )}

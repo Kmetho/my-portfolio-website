@@ -8,39 +8,36 @@ export function ExperimentCard({ experiment }: { experiment: Experiment }) {
     : experiment.liveUrl || "#";
 
   return (
-    <Link
-      href={href}
-      className="group block relative overflow-hidden rounded-xl border border-border/50 hover:border-secondary/40 transition-colors duration-500"
-    >
+    <Link href={href} className="group block">
       <article className="relative">
-        <div className="relative aspect-video overflow-hidden rounded-xl">
+        <div className="relative aspect-video overflow-hidden border-t border-border">
           <Image
             src={experiment.thumbnail}
             alt={experiment.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+        <div className="py-5 md:py-6">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] uppercase tracking-wider text-secondary font-bold">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-foreground">
               Interactive
             </span>
           </div>
 
-          <h3 className="text-lg md:text-xl font-medium text-black">
+          <h3 className="font-serif text-2xl md:text-3xl tracking-tight leading-[1.05] text-foreground">
             {experiment.title}
           </h3>
-          <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+          <p className="text-base text-foreground mt-2 max-w-[70ch]">
             {experiment.description}
           </p>
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
             {experiment.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[10px] text-white/40 border border-white/15 rounded-full px-2 py-0.5"
+                className="text-[10px] font-medium text-foreground"
               >
                 {tag}
               </span>

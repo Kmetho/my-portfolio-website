@@ -9,24 +9,22 @@ export default function NotFound() {
         <Banner />
         <Nav current="work" />
       </div>
-      <div className="px-8 pt-24 md:px-16 lg:px-24">
-        <div className="max-w-6xl">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary mb-8">
-            404
-          </p>
-          <h1 className="text-xl md:text-3xl lg:text-4xl tracking-tight mb-6">
-            Project not found
-          </h1>
-          <p className="text-lg text-muted-foreground mb-10">
-            This case study doesn't exist (yet).
-          </p>
-          <Link
-            href="/work"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wider transition-all duration-300 bg-primary text-primary-foreground hover:shadow-[0_8px_32px_var(--glow-primary)]"
-          >
-            &larr;&ensp;Back to work
-          </Link>
-        </div>
+      <div className="px-[clamp(1rem,4vw,4rem)] pt-24">
+        <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-8">
+          404
+        </p>
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+          Project not found
+        </h1>
+        <p className="font-serif text-lg md:text-xl text-foreground max-w-[70ch] mb-10">
+          This case study doesn&apos;t exist (yet).
+        </p>
+        <Link
+          href="/work"
+          className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground border-b border-foreground pb-0.5 transition-opacity duration-200 hover:opacity-60"
+        >
+          &larr;&ensp;Back to work
+        </Link>
       </div>
     </main>
   );

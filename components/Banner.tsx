@@ -10,11 +10,11 @@ export default function Banner() {
   const track = [...items, ...items, ...items];
 
   return (
-    <div className="flex w-max animate-marquee border-b">
+    <div className="flex w-max animate-marquee border-b border-border">
       {track.map((text, i) => (
         <span
           key={i}
-          className="obvi-wide-bold whitespace-nowrap text-lg md:text-xl uppercase text-foreground/80 mx-6 md:mx-10"
+          className="obvi-wide-bold whitespace-nowrap text-lg md:text-xl uppercase text-foreground mx-6 md:mx-10 py-1"
         >
           {text}
           <span className="inline-block w-16 md:w-24" />

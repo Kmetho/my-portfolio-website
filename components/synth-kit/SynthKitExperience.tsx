@@ -514,10 +514,10 @@ export default function SynthKitExperience() {
       <canvas ref={canvasRef} className="fixed inset-0" />
 
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 text-right pointer-events-none">
-        <p className="text-muted-foreground text-xs sm:text-sm font-bold italic hidden sm:block">
+        <p className="text-foreground/60 text-xs sm:text-sm font-bold italic hidden sm:block">
           click a crystal or press 1–8
         </p>
-        <p className="text-muted-foreground text-xs font-bold italic sm:hidden">
+        <p className="text-foreground/60 text-xs font-bold italic sm:hidden">
           tap a crystal to play
         </p>
       </div>

@@ -39,12 +39,12 @@ export default async function ExperimentSlugPage({ params }: Props) {
   }
 
   return (
-    <main className="h-screen flex items-center justify-center bg-background text-foreground">
-      <div className="text-center px-8">
-        <h1 className="text-2xl md:text-4xl font-medium mb-4">
+    <main className="min-h-screen flex items-center justify-center bg-background text-foreground">
+      <div className="text-center px-[clamp(1rem,4vw,4rem)]">
+        <h1 className="font-serif text-4xl md:text-6xl tracking-tight mb-4 text-foreground">
           {experiment.title}
         </h1>
-        <p className="text-muted-foreground max-w-md mx-auto">
+        <p className="font-serif text-lg text-foreground max-w-[70ch] mx-auto">
           {experiment.description}
         </p>
       </div>

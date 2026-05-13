@@ -1,13 +1,19 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Young_Serif } from "next/font/google";
+
+const youngSerif = Young_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-young-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wercche.xyz"),
   title: "wercche – making things on the internet",
   description:
-    "Creative technologist unearthing the in-between of virtual and real. I build interactive web experiences, 3D experiments, and visual projects.",
+    "Web developer & media artist building interactive web experiences, 3D experiments, and visual projects.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -18,15 +24,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: "wercche – making things on the internet",
     description:
-      "Creative technologist unearthing the in-between of virtual and real. I build interactive web experiences, 3D experiments, and visual projects.",
+      "Web developer & media artist building interactive web experiences, 3D experiments, and visual projects.",
     type: "website",
     url: "https://wercche.xyz/",
     siteName: "wercche",
     locale: "en_US",
     images: "/opengraph-image.jpg",
-  },
-  other: {
-    "X-UA-Compatible": "IE=edge",
   },
 };
 
@@ -36,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={youngSerif.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -44,11 +47,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

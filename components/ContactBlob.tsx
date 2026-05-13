@@ -79,11 +79,11 @@ export default function ContactBlob() {
           className="absolute inset-0 w-full h-full"
           style={{
             filter: showText
-              ? "drop-shadow(0 4px 20px var(--glow-primary))"
-              : "drop-shadow(0 2px 8px oklch(0 0 0 / 0.15))",
+              ? "drop-shadow(0 4px 20px rgba(9, 232, 94, 0.4))"
+              : "drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15))",
           }}
         >
-          <path fill="var(--primary)" opacity="0.9">
+          <path fill="var(--signal)" opacity="0.95">
             <animate
               attributeName="d"
               values={`${blobA};${blobB};${blobA}`}
@@ -96,21 +96,22 @@ export default function ContactBlob() {
         </svg>
 
         <span
-          className="relative z-10 text-primary-foreground font-bold text-[10px] uppercase tracking-widest whitespace-nowrap transition-all duration-300 pointer-events-none"
+          className="relative z-10 font-bold text-[10px] uppercase tracking-widest whitespace-nowrap transition-all duration-300 pointer-events-none"
           style={{
+            color: "#040404",
             opacity: showText ? 1 : 0,
             transform: showText ? "scale(1)" : "scale(0.7)",
             letterSpacing: showText ? "0.1em" : "0",
           }}
         >
-          Let's talk!
+          Let&apos;s talk!
         </span>
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="var(--primary-foreground)"
+          stroke="#040404"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -36,11 +36,11 @@ function Section({
     <FadeIn delay={delay}>
       <section className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
         <FadeIn direction="left" delay={delay + 0.1}>
-          <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground pt-1 lg:sticky lg:top-8">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-foreground pt-1 lg:sticky lg:top-8">
             {title}
           </h3>
         </FadeIn>
-        <div className="max-w-2xl space-y-5 text-base leading-relaxed text-foreground/85">
+        <div className="font-serif max-w-[70ch] space-y-5 text-base md:text-lg leading-relaxed text-foreground">
           {children}
         </div>
       </section>
@@ -66,7 +66,7 @@ function ParallaxScreen({
 
   return (
     <motion.div ref={ref} style={{ y }} className="flex flex-col gap-3">
-      <div className="relative overflow-hidden rounded-(--radius) border border-border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <div className="relative overflow-hidden border border-border transition-transform duration-300 hover:-translate-y-1">
         <Image
           src={screen.src}
           alt={screen.alt}
@@ -75,7 +75,7 @@ function ParallaxScreen({
           className="w-full h-auto"
         />
       </div>
-      <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+      <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">
         {screen.caption}
       </span>
     </motion.div>
@@ -85,27 +85,25 @@ function ParallaxScreen({
 export default function BriefedCaseStudy() {
   return (
     <>
-      <div className="px-8 pb-16 md:px-16 lg:px-24">
-        <div className="max-w-6xl">
-          <div className="grid grid-cols-3 gap-4 md:gap-6">
-            {briefedScreens.map((screen, i) => (
-              <ParallaxScreen key={screen.src} screen={screen} index={i} />
-            ))}
-          </div>
+      <div className="px-[clamp(1rem,4vw,4rem)] pb-16">
+        <div className="grid grid-cols-3 gap-4 md:gap-6">
+          {briefedScreens.map((screen, i) => (
+            <ParallaxScreen key={screen.src} screen={screen} index={i} />
+          ))}
         </div>
       </div>
 
-      <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
+      <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
-      <div className="px-8 py-16 md:px-16 lg:px-24 space-y-16">
-        <div className="max-w-6xl space-y-20">
+      <div className="px-[clamp(1rem,4vw,4rem)] py-16 space-y-16">
+        <div className="space-y-20">
           <Section title="The problem">
             <p>
               Every freelance creative project starts the same way: a string of
               DMs, a voice note, maybe a screenshot of a Pinterest board. The
-              client knows what they want but can&apos;t articulate it. You know
-              what you need to know but don&apos;t want to send a 12-question
-              email that feels like a tax form.
+              client knows what they want but can't articulate it. You
+              know what you need to know but don't want to send a
+              12-question email that feels like a tax form.
             </p>
             <p>
               Thus I pondered about a tool that sends clients a guided form and
@@ -117,19 +115,20 @@ export default function BriefedCaseStudy() {
 
           <Section title="Design decisions">
             <p>
-              The brief form needed to be simple. I chose a multi-step layout -
+              The brief form needed to be simple. I chose a multi-step layout —
               one batch of inputs per step, clear progress, no wall of fields.
               Clients tend to abandon long forms, so breaking it up was a much
               needed UX decision.
             </p>
             <p>
               The public brief view (what the freelancer shares/references) is
-              intentionally minimal. It needed to be printable, screenshottable,
-              and readable in a Zoom call. The same goes for the PDF export.
+              intentionally minimal. It needed to be printable,
+              screenshottable, and readable in a Zoom call. The same goes for
+              the PDF export.
             </p>
             <p>
               For the dashboard I kept the information density low. Freelancers
-              don&apos;t manage hundreds of briefs, but a handful of active
+              don't manage hundreds of briefs, but a handful of active
               projects at a time. I think a clean list with search and archive
               is enough.
             </p>
@@ -137,7 +136,7 @@ export default function BriefedCaseStudy() {
 
           <Section title="The hardest part">
             <p>
-              Because I don&apos;t have any dev acquaintances, and I could only
+              Because I don't have any dev acquaintances, and I could only
               count on Claude Code to help me understand all of the back-end
               shenanigans, everything excluding the front was frustrating.
             </p>

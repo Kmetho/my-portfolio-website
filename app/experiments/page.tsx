@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import Nav from "@/components/Nav";
+import ContactBlob from "@/components/ContactBlob";
 import FadeIn from "@/components/motion/FadeIn";
 import PageTransition from "@/components/motion/PageTransition";
 import LazyVideo from "@/components/LazyVideo";
@@ -19,77 +20,77 @@ export default function ExperimentsPage() {
       </div>
 
       <PageTransition>
-        <section className="px-8 pt-24 pb-16 md:px-16 lg:px-24">
-          <div className="max-w-6xl">
-            <FadeIn delay={0}>
-              <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-5">
-                Media Arts
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <h1 className="text-sm max-w-4xl">
-                3D, generative & visual experiments
-              </h1>
-            </FadeIn>
+        <section className="px-[clamp(1rem,4vw,4rem)] pt-24 pb-16">
+          <FadeIn delay={0}>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-8">
+              Media Arts
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+              3D, generative & visual experiments
+            </h1>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="font-serif text-lg md:text-xl text-foreground max-w-[70ch]">
+              My various explorations where code meets aesthetics.
+            </p>
+          </FadeIn>
+        </section>
+
+        <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
+
+        <section className="px-[clamp(1rem,4vw,4rem)] py-16">
+          <FadeIn delay={0}>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-10">
+              Featured
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {featured.map((experiment, i) => (
+              <FadeIn key={experiment.id} delay={0.1 * i}>
+                <ExperimentCard experiment={experiment} />
+              </FadeIn>
+            ))}
           </div>
         </section>
 
-        <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
+        <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
-        <section className="px-8 py-16 md:px-16 lg:px-24">
-          <div className="max-w-6xl">
-            <FadeIn delay={0}>
-              <p className="text-xs font-bold uppercase tracking-widest text-primary mb-8">
-                Featured
-              </p>
-            </FadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featured.map((experiment, i) => (
-                <FadeIn key={experiment.id} delay={0.1 * i}>
-                  <ExperimentCard experiment={experiment} />
-                </FadeIn>
-              ))}
+        <section className="px-[clamp(1rem,4vw,4rem)] py-16">
+          <FadeIn delay={0}>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-10">
+              Visual work
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <VisualWorkGrid items={visuals} />
+          </FadeIn>
+        </section>
+
+        <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
+
+        <section className="px-[clamp(1rem,4vw,4rem)] py-16">
+          <FadeIn delay={0}>
+            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-10">
+              Generative visualization
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="overflow-hidden border border-border aspect-video max-w-3xl">
+              <LazyVideo
+                src="/experiments/vis-web.mp4"
+                className="w-full h-full object-cover"
+              />
             </div>
-          </div>
+            <p className="font-serif mt-4 text-base md:text-lg text-foreground max-w-[70ch]">
+              Audio-reactive visuals built in TouchDesigner, exploring
+              real-time feedback between sound and geometry.
+            </p>
+          </FadeIn>
         </section>
 
-        <div className="mx-8 md:mx-16 lg:mx-24 max-w-6xl h-px bg-border" />
-
-        <section className="px-8 py-16 md:px-16 lg:px-24">
-          <div className="max-w-6xl">
-            <FadeIn delay={0}>
-              <p className="text-xs font-bold uppercase tracking-widest text-primary mb-8">
-                Visual Work
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <VisualWorkGrid items={visuals} />
-            </FadeIn>
-          </div>
-        </section>
-
-        <div className="px-8 py-16 md:px-16 lg:px-24">
-          <div className="max-w-6xl">
-            <FadeIn delay={0.1}>
-              <div className="max-w-2xl">
-                <div className="overflow-hidden rounded-(--radius) border border-border bg-card aspect-video">
-                  <LazyVideo
-                    src="/experiments/vis-web.mp4"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="mt-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  Generative visualization
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-                  Audio-reactive visuals built in TouchDesigner, exploring
-                  real-time feedback between sound and geometry.
-                </p>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-
+        <ContactBlob />
         <div className="h-20" />
       </PageTransition>
     </main>

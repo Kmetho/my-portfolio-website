@@ -25,7 +25,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-      className="relative w-6 h-6 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+      className="relative w-6 h-6 flex items-center justify-center text-foreground transition-opacity duration-200 hover:opacity-60"
     >
       <motion.svg
         key={dark ? "moon" : "sun"}

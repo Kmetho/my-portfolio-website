@@ -6,11 +6,11 @@ import { motion, Variants } from "framer-motion";
 const name = "wercche";
 
 const letterVariants: Variants = {
-  hidden: (i: number) => ({
+  hidden: {
     opacity: 0,
     y: 60,
     rotateX: -90,
-  }),
+  },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -57,11 +57,8 @@ export default function HeroTypography() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden"
-      style={{ background: "var(--hero-grad)" }}
+      className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden bg-background"
     >
-      <div className="absolute inset-0 hero-overlay" />
-
       <div
         className="relative z-10 text-center px-6 select-none"
         style={{
@@ -71,8 +68,10 @@ export default function HeroTypography() {
         }}
       >
         <h1
-          className="obvi-extended-super-italic text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground/90 leading-[0.9] mb-4 flex justify-center"
-          style={{ perspective: "400px" }}
+          className="obvi-extended-super-italic text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground leading-[0.95] mb-4 flex justify-center"
+          style={{
+            perspective: "400px",
+          }}
         >
           {name.split("").map((char, i) => (
             <motion.span
@@ -91,7 +90,7 @@ export default function HeroTypography() {
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"
-          className="obvi-wide-bold text-sm sm:text-base md:text-lg uppercase tracking-[0.3em] text-foreground/50"
+          className="font-serif text-sm sm:text-base md:text-lg text-foreground uppercase tracking-[0.3em]"
         >
           web developer & media artist
         </motion.p>

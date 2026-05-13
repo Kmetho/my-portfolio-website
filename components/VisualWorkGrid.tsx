@@ -25,7 +25,7 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
           <button
             key={item.id}
             onClick={() => setSelected(item)}
-            className="group relative aspect-square overflow-hidden rounded-lg focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group relative aspect-square overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-signal"
           >
             <Image
               src={item.image || item.thumbnail}
@@ -34,13 +34,13 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
               sizes="(max-width: 768px) 50vw, 25vw"
               className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-end p-3">
+            <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors duration-300 flex items-end p-3">
               <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-sm text-white font-medium">
+                <span className="text-sm font-medium text-background">
                   {item.title}
                 </span>
                 {item.medium && (
-                  <span className="block text-[10px] text-white/50 mt-0.5">
+                  <span className="block text-[10px] text-background mt-0.5">
                     {item.medium}
                   </span>
                 )}
@@ -52,7 +52,7 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
 
       {selected && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-6 md:p-8"
+          className="fixed inset-0 z-50 bg-foreground/85 flex items-center justify-center p-6 md:p-8"
           onClick={close}
         >
           <div
@@ -64,20 +64,20 @@ export function VisualWorkGrid({ items }: { items: Experiment[] }) {
               alt={selected.title}
               width={1920}
               height={1080}
-              className="w-auto h-auto rounded-lg"
+              className="w-auto h-auto"
             />
             <div className="mt-4 flex justify-between items-start">
               <div>
-                <h3 className="text-lg text-white">{selected.title}</h3>
+                <h3 className="text-lg text-background">{selected.title}</h3>
                 {selected.medium && (
-                  <p className="text-sm text-white/50 mt-1">
+                  <p className="text-sm text-background mt-1">
                     {selected.medium}
                   </p>
                 )}
               </div>
               <button
                 onClick={close}
-                className="text-white/40 hover:text-white text-sm transition-colors"
+                className="text-background text-sm hover:opacity-60 transition-opacity"
               >
                 Close
               </button>

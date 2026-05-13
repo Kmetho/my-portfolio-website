@@ -55,7 +55,7 @@ export default function Slideshow({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-[var(--radius)] border border-border bg-card ${className}`}
+      className={`relative overflow-hidden border border-border ${className}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -91,8 +91,8 @@ export default function Slideshow({
               aria-label={`Go to slide ${i + 1}`}
               className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                 i === current
-                  ? "bg-white scale-125"
-                  : "bg-white/40 hover:bg-white/70"
+                  ? "bg-background scale-125"
+                  : "bg-background/40 hover:bg-background/70"
               }`}
             />
           ))}
@@ -100,7 +100,7 @@ export default function Slideshow({
       )}
 
       {paused && (
-        <div className="absolute top-3 right-3 z-10 text-white/60 text-[10px] font-bold uppercase tracking-widest">
+        <div className="absolute top-3 right-3 z-10 text-background text-[10px] font-bold uppercase tracking-widest">
           paused
         </div>
       )}

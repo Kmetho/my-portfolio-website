@@ -20,16 +20,16 @@ export default function Nav({ current }: NavProps) {
   const activeKey = hovered || current;
 
   return (
-    <nav className="z-40 flex items-center justify-between px-6 py-4 md:px-16 lg:px-24 md:py-5 border-b">
+    <nav className="z-40 flex items-center justify-between px-[clamp(1rem,4vw,4rem)] py-4 md:py-5 border-b border-border">
       <a
         href="/"
-        className="font-display text-lg font-black tracking-tight hover:text-primary transition-colors duration-200 hidden md:block"
+        className="font-sans text-lg font-black tracking-tight text-foreground hidden md:block"
       >
         wercche
       </a>
       <a
         href="/"
-        className="font-display text-sm font-black tracking-tight hover:text-primary transition-colors duration-200 md:hidden"
+        className="font-sans text-sm font-black tracking-tight text-foreground md:hidden"
       >
         w.
       </a>
@@ -47,17 +47,15 @@ export default function Nav({ current }: NavProps) {
               key={link.label}
               href={link.href}
               onMouseEnter={() => setHovered(key)}
-              className={`relative text-[10px] md:text-xs font-bold uppercase tracking-widest transition-colors duration-200 py-1 ${
-                current === key
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
+              className={`relative text-[10px] md:text-xs font-bold uppercase tracking-widest text-foreground py-1 ${
+                current === key ? "font-black" : ""
               }`}
             >
               {link.label}
               {isActive && (
                 <motion.span
                   layoutId="nav-underline"
-                  className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-primary rounded-full"
+                  className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-signal rounded-full"
                   transition={{
                     type: "spring",
                     stiffness: 400,
