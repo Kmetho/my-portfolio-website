@@ -59,7 +59,7 @@ export default function DigitalZineLoader() {
 
   return (
     <div className="relative">
-      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-primary-foreground font-bold text-xs uppercase gap-4">
+      {/* <div className="flex flex-col items-center justify-center min-h-screen bg-background text-primary-foreground font-bold text-xs uppercase gap-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-100 -100 200 200"
@@ -76,16 +76,16 @@ export default function DigitalZineLoader() {
           &larr; go back (for now)
         </Link>
         <span>and visit later</span>
+      </div> */}
 
-        {/* <Zine />
+      <Zine />
 
       <div className="relative z-10">
         {SECTIONS.map((SectionX, i) => (
-          <section key={i} className="zine-section relative min-h-screen">
+          <section key={i} className="zine-section relative min-h-[<150vh>]">
             <SectionX section={sections[i]} />
           </section>
         ))}
-      </div> */}
       </div>
     </div>
   );
