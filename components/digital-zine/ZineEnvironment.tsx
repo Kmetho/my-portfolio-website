@@ -3,6 +3,7 @@
 import * as THREE from "three";
 import { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
+import { useReducedMotion } from "framer-motion";
 import gsap from "gsap";
 
 const o = new THREE.Object3D();
@@ -16,6 +17,7 @@ export function ZineEnvironment({
 }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const { scene } = useThree();
+  const reducedMotion = useReducedMotion();
 
   const bubbleSpeed = useRef(new Float32Array(count));
   const minSpeed = speed * 0.001;
@@ -68,6 +70,10 @@ export function ZineEnvironment({
     // per-section) so they blend into the current scene.
     const fog = scene.fog as THREE.FogExp2 | null;
     if (fog) material.color.copy(fog.color);
+
+    // Freeze the upward drift under prefers-reduced-motion (colour still tracks
+    // the atmosphere — that's not motion).
+    if (reducedMotion) return;
 
     // Normalise to 60fps so the rise speed is the same on any refresh rate.
     const step = delta * 60;

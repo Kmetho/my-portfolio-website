@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Preload, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { useReducedMotion } from "framer-motion";
 import { ZineEnvironment } from "./ZineEnvironment";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,6 +63,7 @@ function ZineModel({
   const outerRef = useRef<THREE.Group>(null);
   const modelRef = useRef<THREE.Object3D>(null);
   const elapsed = useRef(0);
+  const reducedMotion = useReducedMotion();
 
   const dir = modelIndex % 2 === 0 ? 1 : -1;
 
@@ -132,9 +134,11 @@ function ZineModel({
   }, [sectionIndex]);
 
   // Idle rotation + subtle breathing pulse on the inner model.
+  // Skipped under prefers-reduced-motion — the model then rests at the static
+  // def.scale set on the primitive below.
   useFrame((_state, delta) => {
     const model = modelRef.current;
-    if (!model || !outerRef.current?.visible) return;
+    if (!model || !outerRef.current?.visible || reducedMotion) return;
     elapsed.current += delta;
     model.rotation.y += delta * 0.12 * dir;
     const pulse =
@@ -147,6 +151,7 @@ function ZineModel({
       <primitive
         ref={modelRef}
         object={object}
+        scale={def.scale}
         position={def.pos ?? [0, 0, 0]}
         rotation={def.rot ?? [0, 0, 0]}
       />
