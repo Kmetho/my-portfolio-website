@@ -5,25 +5,11 @@ import FadeIn from "./motion/FadeIn";
 import PageTransition from "./motion/PageTransition";
 import StaggerChildren, { StaggerItem } from "./motion/StaggerChildren";
 
-const tools = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "JavaScript",
-  "Tailwind",
-  "shadcn/ui",
-  "Vercel",
-  "Git",
-  "Blender",
-  "Adobe Creative Suite",
-  "Figma",
-  "TouchDesigner",
-];
-
 const links = [
   { label: "Email", href: "mailto:wercche@gmail.com" },
   { label: "GitHub", href: "https://github.com/Kmetho" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
+  { label: "Instagram", href: "https://www.instagram.com/wercche/" },
 ];
 
 export default function About() {
@@ -56,25 +42,6 @@ export default function About() {
           </div>
         </section>
 
-        <section className="px-[clamp(1rem,4vw,4rem)] pb-16">
-          <div className="flex flex-row gap-8">
-            {links.map((link, i) => (
-              <FadeIn key={link.label} delay={i * 0.1}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group"
-                >
-                  <span className="text-xs uppercase font-bold tracking-widest text-foreground transition-opacity duration-200 group-hover:opacity-60">
-                    {link.label}
-                  </span>
-                </a>
-              </FadeIn>
-            ))}
-          </div>
-        </section>
-
         <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
         <section className="px-[clamp(1rem,4vw,4rem)] py-16">
@@ -82,7 +49,7 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
               <FadeIn direction="left" delay={0.1}>
                 <p className="text-xs font-bold uppercase tracking-widest text-foreground pt-1">
-                  Tools & Technologies
+                  Contact
                 </p>
               </FadeIn>
               <div>
@@ -90,11 +57,18 @@ export default function About() {
                   stagger={0.06}
                   className="flex flex-wrap gap-x-6 gap-y-2"
                 >
-                  {tools.map((tool) => (
-                    <StaggerItem key={tool}>
-                      <span className="text-base md:text-lg text-foreground">
-                        {tool}
-                      </span>
+                  {links.map((link) => (
+                    <StaggerItem key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group"
+                      >
+                        <span className="text-xs uppercase tracking-widest text-foreground transition-opacity duration-200 group-hover:opacity-60">
+                          {link.label}
+                        </span>
+                      </a>
                     </StaggerItem>
                   ))}
                 </StaggerChildren>

@@ -39,11 +39,11 @@ export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-5xl tracking-tight leading-[1.05] mb-3 text-foreground">
+            <h2 className="text-2xl md:text-3xl tracking-tight leading-[1.05] mb-3 text-foreground">
               {project.title}
             </h2>
 
-            <p className="text-base md:text-lg leading-relaxed text-foreground max-w-[70ch] mb-4">
+            <p className="text-base leading-relaxed text-foreground mb-4">
               {project.description}
             </p>
 
