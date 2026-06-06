@@ -1,91 +1,100 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
 import { useRef } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import Link from "next/link";
 
-import { sections } from "@/data/sections";
-import { Section0 } from "./sections/Section0";
-import { Section1 } from "./sections/Section1";
-import { Section2 } from "./sections/Section2";
-import { Section3 } from "./sections/Section3";
-import { Section4 } from "./sections/Section4";
-import { Section5 } from "./sections/Section5";
-import { Section6 } from "./sections/Section6";
-import { Section7 } from "./sections/Section7";
 
-const Zine = dynamic(() => import("./ZineLogic"), { ssr: false });
+const FACE =
+  "M88.92,44.58c0,24.62-19.96,44.58-44.58,44.58-59.13-2.35-59.12-86.82,0-89.16,24.62,0,44.58,19.96,44.58,44.58Z";
+const MOUTH =
+  "M66.96,49.42c-10.37,16.64-35.41,16.46-45.45-.36-.44-.77.06-1.78.73-2.15s1.74-.26,2.19.47c3.94,6.5,11.12,10.69,18.71,11.04,8.46.44,16.37-3.65,20.89-10.79,1.22-2.07,4.21-.27,2.93,1.79Z";
+const EYE_L =
+  "M34.64,32.95c0,2.88-2.33,5.21-5.21,5.21-6.9-.24-6.9-10.19,0-10.42,2.88,0,5.21,2.33,5.21,5.21Z";
+const EYE_R =
+  "M64.54,32.96c0,2.88-2.33,5.21-5.21,5.21-6.9-.24-6.9-10.18,0-10.42,2.88,0,5.21,2.33,5.21,5.21Z";
 
-const SECTIONS = [
-  Section0,
-  Section1,
-  Section2,
-  Section3,
-  Section4,
-  Section5,
-  Section6,
-  Section7,
-];
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(useGSAP, MorphSVGPlugin);
-}
-
-const BLOB1 =
-  "M45.1,-60.2C52.5,-56.7,48.5,-35.6,53.8,-17.8C59,-0.1,73.6,14.3,72.2,24.9C70.7,35.5,53.2,42.3,38.5,52.3C23.8,62.2,11.9,75.3,-3.1,79.6C-18.1,83.9,-36.3,79.4,-42.2,66.6C-48.1,53.8,-41.7,32.6,-41,17.4C-40.3,2.2,-45.3,-7.1,-43.2,-14.3C-41.2,-21.4,-32.1,-26.6,-23.7,-29.7C-15.3,-32.9,-7.7,-34.1,5.6,-41.8C18.9,-49.5,37.7,-63.7,45.1,-60.2Z";
-const BLOB2 =
-  "M22.1,-34.4C30,-24.7,38.6,-20,41.9,-12.9C45.2,-5.8,43.1,3.7,39.3,12C35.6,20.3,30.3,27.4,23.5,34.4C16.7,41.5,8.3,48.6,-0.2,48.9C-8.8,49.2,-17.7,42.8,-30.7,37.8C-43.7,32.8,-60.9,29.1,-68.9,18.9C-77,8.8,-75.9,-7.7,-67.9,-18.9C-59.9,-30.1,-45.1,-35.9,-32.7,-44.1C-20.2,-52.3,-10.1,-62.9,-1.5,-60.8C7.1,-58.7,14.2,-44,22.1,-34.4Z";
-const BLOB3 =
-  "M46.3,-64.1C59.9,-53.9,70.6,-40.2,68.3,-27C66,-13.8,50.5,-1.2,44,12.9C37.5,27,39.8,42.5,34,54.6C28.1,66.7,14.1,75.3,0.5,74.6C-13.1,73.9,-26.2,64,-39.9,54.5C-53.6,44.9,-68,35.9,-70.5,23.9C-72.9,12,-63.3,-2.7,-58.1,-18.9C-52.9,-35.2,-52.1,-52.8,-43.1,-64.6C-34.2,-76.3,-17.1,-82.1,-0.4,-81.6C16.4,-81.1,32.7,-74.3,46.3,-64.1Z";
+// bounce-loop tuning knobs
+const APEX = -70; // how high it rises (px), negative = up
+const SQUASH = { x: 1.35, y: 0.62 }; // splat at impact
+const STRETCH = { x: 0.9, y: 1.1 }; // elongation mid-air
 
 export default function DigitalZineLoader() {
-  const myShape = useRef(null);
+  const ballRef = useRef<SVGSVGElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({ repeat: -1 });
+    const ball = ballRef.current;
+    if (!ball) return;
 
-    tl.to(myShape.current, { morphSVG: BLOB2, duration: 2, ease: "sine.inOut" })
-      .to(myShape.current, { morphSVG: BLOB3, duration: 2, ease: "sine.inOut" })
-      .to(myShape.current, {
-        morphSVG: BLOB1,
-        duration: 2,
-        ease: "sine.inOut",
-      });
-  });
+    // origin at bottom-centre so the squash plants onto the "ground"
+    gsap.set(ball, { transformOrigin: "50% 100%" });
+
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.set(ball, { y: APEX, scaleX: 1, scaleY: 1 });
+
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.12 });
+      tl
+        // fall + stretch as it accelerates
+        .to(ball, {
+          y: 0,
+          scaleX: STRETCH.x,
+          scaleY: STRETCH.y,
+          duration: 0.45,
+          ease: "power2.in",
+        })
+        // impact: squash onto the ground
+        .to(ball, {
+          scaleX: SQUASH.x,
+          scaleY: SQUASH.y,
+          duration: 0.1,
+          ease: "power2.out",
+        })
+        // recoil stretch as it pushes off
+        .to(ball, {
+          scaleX: 0.94,
+          scaleY: 1.06,
+          duration: 0.12,
+          ease: "power1.out",
+        })
+        // rise + settle back to a round resting shape
+        .to(ball, {
+          y: APEX,
+          scaleX: 1,
+          scaleY: 1,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+    });
+  }, []);
 
   return (
     <div className="relative">
-      <div className="flex flex-col items-center justify-center min-h-screen bg-background text-primary-foreground font-bold text-xs uppercase gap-4">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-background text-foreground uppercase">
         <svg
+          ref={ballRef}
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="-100 -100 200 200"
-          className="w-64 h-64"
-          fill="var(--primary)"
+          viewBox="0 0 88.92 89.16"
+          className="w-32 h-32 md:w-40 md:h-40 will-change-transform"
+          aria-hidden="true"
         >
-          <path ref={myShape} d={BLOB1} />
+          <path d={FACE} fill="var(--foreground)" />
+          <path d={MOUTH} fill="var(--background)" />
+          <path d={EYE_L} fill="var(--background)" />
+          <path d={EYE_R} fill="var(--background)" />
         </svg>
-        <span>Cooking up something good...</span>
+
+        <span className="text-lg md:text-2xl tracking-widest">
+          Nothing to see here for now
+        </span>
+
         <Link
           href="/experiments"
-          className="text-primary/50 hover:text-primary transition-colors duration-200"
+          className="text-xs font-bold tracking-widest transition-colors duration-200 hover:text-signal"
         >
-          &larr; go back (for now)
+          &larr; go back
         </Link>
-        <span>and visit later</span>
-
-        {/* <Zine />
-
-      <div className="relative z-10">
-        {SECTIONS.map((SectionX, i) => (
-          <section key={i} className="zine-section relative min-h-screen">
-            <SectionX section={sections[i]} />
-          </section>
-        ))}
-      </div> */}
       </div>
     </div>
   );
