@@ -27,7 +27,7 @@ export function ExperimentCard({ experiment }: { experiment: Experiment }) {
             </span>
           </div>
 
-          <h3 className="font-serif text-2xl md:text-3xl tracking-tight leading-[1.05] text-foreground">
+          <h3 className="text-2xl md:text-3xl tracking-tight leading-[1.05] text-foreground">
             {experiment.title}
           </h3>
           <p className="text-base text-foreground mt-2 max-w-[70ch]">

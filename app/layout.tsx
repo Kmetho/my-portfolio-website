@@ -1,13 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Young_Serif } from "next/font/google";
-
-const youngSerif = Young_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-young-serif",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wercche.xyz"),
@@ -39,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={youngSerif.variable} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

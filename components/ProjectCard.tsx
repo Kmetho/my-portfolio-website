@@ -39,7 +39,7 @@ export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl md:text-5xl tracking-tight leading-[1.05] mb-3 text-foreground">
+            <h2 className="text-3xl md:text-5xl tracking-tight leading-[1.05] mb-3 text-foreground">
               {project.title}
             </h2>
 

@@ -7,10 +7,10 @@ export default function ExperimentNotFound() {
         <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-6">
           404
         </p>
-        <h1 className="font-serif text-4xl md:text-6xl tracking-tight mb-4 text-foreground">
+        <h1 className="text-4xl md:text-6xl tracking-tight mb-4 text-foreground">
           Experiment not found
         </h1>
-        <p className="font-serif text-lg text-foreground mb-8 max-w-[70ch] mx-auto">
+        <p className="text-lg text-foreground mb-8 max-w-[70ch] mx-auto">
           This experiment doesn&apos;t exist or has been moved.
         </p>
         <Link

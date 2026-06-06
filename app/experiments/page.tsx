@@ -27,12 +27,12 @@ export default function ExperimentsPage() {
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
               3D, generative & visual experiments
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="font-serif text-lg md:text-xl text-foreground max-w-[70ch]">
+            <p className="text-lg md:text-xl text-foreground max-w-[70ch]">
               My various explorations where code meets aesthetics.
             </p>
           </FadeIn>
@@ -83,7 +83,7 @@ export default function ExperimentsPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="font-serif mt-4 text-base md:text-lg text-foreground max-w-[70ch]">
+            <p className="mt-4 text-base md:text-lg text-foreground max-w-[70ch]">
               Audio-reactive visuals built in TouchDesigner, exploring
               real-time feedback between sound and geometry.
             </p>

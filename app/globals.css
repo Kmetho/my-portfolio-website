@@ -49,7 +49,6 @@
 }
 
 @theme {
-  --font-serif: var(--font-young-serif), Georgia, serif;
   --font-sans: obviously-variable, system-ui, sans-serif;
 
   --color-foreground: var(--foreground);
@@ -68,12 +67,6 @@ body {
   transition:
     background var(--transition),
     color var(--transition);
-}
-
-/* default serif for long-form text */
-.prose,
-.long-form {
-  font-family: var(--font-serif);
 }
 
 /* marquee */

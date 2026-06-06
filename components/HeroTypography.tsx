@@ -90,7 +90,7 @@ export default function HeroTypography() {
           variants={subtitleVariants}
           initial="hidden"
           animate="visible"
-          className="font-serif text-sm sm:text-base md:text-lg text-foreground uppercase tracking-[0.3em]"
+          className="text-sm sm:text-base md:text-lg text-foreground uppercase tracking-[0.3em]"
         >
           web developer & media artist
         </motion.p>

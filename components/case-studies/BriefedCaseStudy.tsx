@@ -40,7 +40,7 @@ function Section({
             {title}
           </h3>
         </FadeIn>
-        <div className="font-serif max-w-[70ch] space-y-5 text-base md:text-lg leading-relaxed text-foreground">
+        <div className="font-sans max-w-[70ch] space-y-5 text-base md:text-lg leading-relaxed text-foreground">
           {children}
         </div>
       </section>

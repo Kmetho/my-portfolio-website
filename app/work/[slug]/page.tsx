@@ -64,13 +64,13 @@ export default async function ProjectPage({
             </FadeIn>
 
             <FadeIn delay={0.1}>
-              <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
                 {project.title}
               </h1>
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              <p className="font-serif text-lg md:text-xl text-foreground max-w-[70ch] mb-10 leading-relaxed">
+              <p className="text-lg md:text-xl text-foreground max-w-[70ch] mb-10 leading-relaxed">
                 {project.description}
               </p>
             </FadeIn>

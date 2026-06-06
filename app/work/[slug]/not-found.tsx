@@ -13,10 +13,10 @@ export default function NotFound() {
         <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-8">
           404
         </p>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
           Project not found
         </h1>
-        <p className="font-serif text-lg md:text-xl text-foreground max-w-[70ch] mb-10">
+        <p className="text-lg md:text-xl text-foreground max-w-[70ch] mb-10">
           This case study doesn&apos;t exist (yet).
         </p>
         <Link
