@@ -2,19 +2,20 @@
 
 import * as THREE from "three";
 import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 
 const o = new THREE.Object3D();
 
 export function ZineEnvironment({
   count = 300,
-  speed = 5,
+  speed = 1.5,
   bubbleSize = 0.05,
   opacity = 0.5,
   repeat = true,
 }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
+  const { scene } = useThree();
 
   const bubbleSpeed = useRef(new Float32Array(count));
   const minSpeed = speed * 0.001;
@@ -58,19 +59,24 @@ export function ZineEnvironment({
   }, [count, minSpeed, maxSpeed]);
 
   // useFrame runs on every animation frame
-  useFrame(() => {
+  useFrame((_state, delta) => {
     if (!meshRef.current) {
       return;
     }
 
-    // Assign current body color to bubble so it looks natural
-    material.color = new THREE.Color(document.body.style.backgroundColor);
+    // Tint bubbles with the active atmosphere (the fog colour GSAP scrubs
+    // per-section) so they blend into the current scene.
+    const fog = scene.fog as THREE.FogExp2 | null;
+    if (fog) material.color.copy(fog.color);
+
+    // Normalise to 60fps so the rise speed is the same on any refresh rate.
+    const step = delta * 60;
 
     for (let i = 0; i < count; i++) {
       meshRef.current.getMatrixAt(i, o.matrix);
       o.position.setFromMatrixPosition(o.matrix);
       // Move bubble upwards by its speed
-      o.position.y += bubbleSpeed.current[i];
+      o.position.y += bubbleSpeed.current[i] * step;
 
       // Reset bubble position if it moves off the top of the screen
       if (o.position.y > 4 && repeat) {
