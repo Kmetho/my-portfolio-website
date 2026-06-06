@@ -10,6 +10,7 @@ const links = [
   { label: "GitHub", href: "https://github.com/Kmetho" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
   { label: "Instagram", href: "https://www.instagram.com/wercche/" },
+  { label: "Tumblr", href: "https://wercche.tumblr.com/" },
 ];
 
 export default function About() {
