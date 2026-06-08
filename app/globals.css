@@ -1,4 +1,4 @@
-@import url("https://use.typekit.net/gpq0zkv.css");
+@import url("https://use.typekit.net/hew7ysc.css");
 @import "tailwindcss";
 
 @layer base {
@@ -26,30 +26,22 @@
   }
 }
 
-/* Obviously Variable utility classes */
-@utility obvi-extended-super-italic {
-  font-variation-settings:
-    "ital" 1,
-    "wdth" 200,
-    "wght" 900;
+/* Polymath display */
+@utility display-bold-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
 }
 
-@utility obvi-thin-italic {
-  font-variation-settings:
-    "ital" 1,
-    "wdth" 60,
-    "wght" 200;
-}
-
-@utility obvi-wide-bold {
-  font-variation-settings:
-    "ital" 0,
-    "wdth" 150,
-    "wght" 700;
+@utility wordmark {
+  font-family: owners-xxwide, sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
 @theme {
-  --font-sans: obviously-variable, system-ui, sans-serif;
+  --font-sans: polymath-text, system-ui, sans-serif;
+  --font-display: polymath-display, system-ui, sans-serif;
 
   --color-foreground: var(--foreground);
   --color-background: var(--background);

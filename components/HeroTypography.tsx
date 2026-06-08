@@ -68,7 +68,7 @@ export default function HeroTypography() {
         }}
       >
         <h1
-          className="obvi-extended-super-italic text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground leading-[0.95] mb-4 flex justify-center"
+          className="wordmark text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground leading-[0.95] mb-4 flex justify-center"
           style={{
             perspective: "400px",
           }}

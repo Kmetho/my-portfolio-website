@@ -23,13 +23,13 @@ export default function Nav({ current }: NavProps) {
     <nav className="z-40 flex items-center justify-between px-[clamp(1rem,4vw,4rem)] py-4 md:py-5 border-b border-border">
       <a
         href="/"
-        className="font-sans text-lg font-black tracking-tight text-foreground hidden md:block"
+        className="wordmark text-lg tracking-tight text-foreground hidden md:block"
       >
         wercche
       </a>
       <a
         href="/"
-        className="font-sans text-sm font-black tracking-tight text-foreground md:hidden"
+        className="wordmark text-sm tracking-tight text-foreground md:hidden"
       >
         w.
       </a>
