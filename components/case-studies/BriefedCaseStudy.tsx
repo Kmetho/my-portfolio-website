@@ -7,17 +7,17 @@ import FadeIn from "../motion/FadeIn";
 
 const briefedScreens = [
   {
-    src: "/homepage-no-user.jpg",
+    src: "/homepage-no-user.png",
     alt: "Briefed landing page - Stop losing briefs in your DMs",
     caption: "Landing",
   },
   {
-    src: "/homepage-user.jpg",
+    src: "/homepage-user.png",
     alt: "Briefed logged-in homepage - Your briefs, all in one place",
     caption: "Home",
   },
   {
-    src: "/dashboard.jpg",
+    src: "/dashboard.png",
     alt: "Briefed dashboard - My Briefs with status filters and brief cards",
     caption: "Dashboard",
   },
