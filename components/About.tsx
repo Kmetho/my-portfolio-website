@@ -8,8 +8,6 @@ import StaggerChildren, { StaggerItem } from "./motion/StaggerChildren";
 const links = [
   { label: "Email", href: "mailto:wercche@gmail.com" },
   { label: "GitHub", href: "https://github.com/Kmetho" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/wercche/" },
-  { label: "Instagram", href: "https://www.instagram.com/wercche/" },
   { label: "Tumblr", href: "https://wercche.tumblr.com/" },
 ];
 
@@ -26,16 +24,13 @@ export default function About() {
           <div className="font-sans max-w-[70ch] space-y-6 text-lg md:text-xl leading-relaxed text-foreground">
             <FadeIn delay={0.1}>
               <p>
-                Media Arts student working across the web, 3D, and other
+                Creative technologist working across the web, 3D, and other
                 visuals. Most of my time goes into building things that are
-                simply fun and functional. Both in real life and in cyberspace.
+                simply fun and functional.
               </p>
             </FadeIn>
             <FadeIn delay={0.2}>
-              <p>
-                My studies sit at the intersection of art and technology. I'm
-                drawn to projects where those two things align.
-              </p>
+              <p>I'm drawn to projects where art meets technology.</p>
             </FadeIn>
             <FadeIn delay={0.3}>
               <p>Open for freelance, collaborations or full-time position.</p>
@@ -50,7 +45,7 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-16 items-baseline">
               <FadeIn direction="left" delay={0.1}>
                 <p className="text-xs font-bold uppercase tracking-widest text-foreground pt-1">
-                  Contact
+                  Contact/socials
                 </p>
               </FadeIn>
               <div>

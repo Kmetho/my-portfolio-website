@@ -92,7 +92,7 @@ export default function HeroTypography() {
           animate="visible"
           className="text-sm sm:text-base md:text-lg text-foreground uppercase tracking-[0.3em]"
         >
-          web developer & media artist
+          creative technologist
         </motion.p>
       </div>
     </div>
