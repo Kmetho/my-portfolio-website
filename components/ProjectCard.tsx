@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "./motion/FadeIn";
 import type { Project } from "@/data/projects";
+import { getCaseStudyBySlug } from "@/data/case-studies";
 
 interface ProjectCardProps {
   project: Project;
@@ -12,6 +13,8 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
+  const hasCaseStudy = Boolean(getCaseStudyBySlug(project.slug));
+
   return (
     <FadeIn delay={delay}>
       <Link href={`/work/${project.slug}`} className="group block">
@@ -32,7 +35,7 @@ export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
           <div className="py-6 md:py-8">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">
-                Case Study
+                {hasCaseStudy ? "Case Study" : "Experience"}
               </span>
               <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">
                 {project.year}

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Banner from "@/components/Banner";
 import Nav from "@/components/Nav";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -16,14 +16,11 @@ export default function NotFound() {
         <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
           Project not found
         </h1>
-        <p className="text-lg md:text-xl text-foreground max-w-[70ch] mb-10">
-          This case study doesn&apos;t exist (yet).
-        </p>
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground border-b border-foreground pb-0.5 transition-opacity duration-200 hover:opacity-60"
+          className="text-xs font-bold tracking-widest transition-colors duration-200 hover:text-signal"
         >
-          &larr;&ensp;Back to work
+          &larr; go back to work page
         </Link>
       </div>
     </main>

@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 
-
 const FACE =
   "M88.92,44.58c0,24.62-19.96,44.58-44.58,44.58-59.13-2.35-59.12-86.82,0-89.16,24.62,0,44.58,19.96,44.58,44.58Z";
 const MOUTH =
@@ -90,7 +89,7 @@ export default function DigitalZineLoader() {
         </span>
 
         <Link
-          href="/experiments"
+          href="/work"
           className="text-xs font-bold tracking-widest transition-colors duration-200 hover:text-signal"
         >
           &larr; go back
