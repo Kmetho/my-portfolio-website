@@ -4,10 +4,10 @@ import ProjectCard from "@/components/ProjectCard";
 import ContactBlob from "@/components/ContactBlob";
 import FadeIn from "@/components/motion/FadeIn";
 import PageTransition from "@/components/motion/PageTransition";
-import LazyVideo from "@/components/LazyVideo";
-import { VisualWorkGrid } from "@/components/VisualWorkGrid";
+// import LazyVideo from "@/components/LazyVideo";
+// import { VisualWorkGrid } from "@/components/VisualWorkGrid";
 import { projects } from "@/data/projects";
-import { photos, renders } from "@/data/images";
+// import { photos, renders } from "@/data/images";
 
 export default function Experiments() {
   return (
@@ -20,7 +20,7 @@ export default function Experiments() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6 text-foreground">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl tracking-tight leading-[0.95] text-foreground">
             Selected projects and things I've built
           </h1>
         </FadeIn>
@@ -36,7 +36,7 @@ export default function Experiments() {
         </div>
       </section>
 
-      <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
+      {/* <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
       <section className="px-[clamp(1rem,4vw,4rem)] py-16">
         <FadeIn delay={0}>
@@ -48,7 +48,7 @@ export default function Experiments() {
           <VisualWorkGrid items={photos} />
         </FadeIn>
 
-        <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
+        <div className="my-12 md:my-16 h-px bg-border" />
 
         <FadeIn delay={0.2}>
           <VisualWorkGrid items={renders} />
@@ -75,7 +75,7 @@ export default function Experiments() {
             feedback between sound and geometry.
           </p>
         </FadeIn>
-      </section>
+      </section> */}
 
       <ContactBlob />
       <div className="h-20" />
