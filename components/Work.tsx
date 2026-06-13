@@ -31,7 +31,12 @@ export default function Experiments() {
       <section className="px-[clamp(1rem,4vw,4rem)] py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {projects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} delay={0.1 * i} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              delay={0.1 * i}
+              priority={i < 2}
+            />
           ))}
         </div>
       </section>

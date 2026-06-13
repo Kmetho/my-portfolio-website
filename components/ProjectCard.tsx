@@ -10,9 +10,14 @@ import { getCaseStudyBySlug } from "@/data/case-studies";
 interface ProjectCardProps {
   project: Project;
   delay?: number;
+  priority?: boolean;
 }
 
-export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  delay = 0,
+  priority = false,
+}: ProjectCardProps) {
   const hasCaseStudy = Boolean(getCaseStudyBySlug(project.slug));
 
   return (
@@ -28,7 +33,9 @@ export default function ProjectCard({ project, delay = 0 }: ProjectCardProps) {
               src={project.thumbnail}
               alt={`${project.title} preview`}
               fill
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02] loading-eager"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={priority}
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
             />
           </div>
 
