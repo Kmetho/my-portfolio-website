@@ -57,7 +57,7 @@ export default function HeroTypography() {
   return (
     <div
       ref={ref}
-      className="fixed inset-0 z-10 flex items-center justify-center overflow-hidden bg-background"
+      className="fixed inset-0 z-0 flex items-center justify-center overflow-hidden bg-background"
     >
       <div
         className="relative z-10 text-center px-6 select-none"
