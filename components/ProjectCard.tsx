@@ -22,7 +22,10 @@ export default function ProjectCard({
 
   return (
     <FadeIn delay={delay}>
-      <Link href={`/work/${project.slug}`} className="group block">
+      <Link
+        href={hasCaseStudy ? `/work/${project.slug}` : project.liveUrl || "#"}
+        className="group block"
+      >
         <motion.article
           className="overflow-hidden border-t border-border"
           whileHover={{ y: -4 }}

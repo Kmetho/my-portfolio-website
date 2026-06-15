@@ -62,7 +62,7 @@ export const projects: Project[] = [
       "An interactive poetry zine. Scroll through 3D environments inhabited by love poems written in the language of technology.",
     year: "zine: 2024, digital version: 2026",
     tags: ["React Three Fiber", "GSAP", "Poetry", "3D"],
-    role: "fullstack, UX/UI, writer",
+    role: "fullstack, UX/UI, writer, 3D modeling",
     thumbnail: "/thumbnails/digital-zine-thumb.png",
     liveUrl: "https://wercche.xyz/work/digital-zine",
     githubUrl: "https://github.com/Kmetho/my-portfolio-website",
@@ -79,5 +79,18 @@ export const projects: Project[] = [
     thumbnail: "/thumbnails/synth-kit-thumb.jpg",
     liveUrl: "https://wercche.xyz/work/synth-kit",
     githubUrl: "https://github.com/Kmetho/my-portfolio-website",
+  },
+
+  {
+    slug: "reactive-shaders",
+    title: "Reactive Shaders",
+    description:
+      "Work in progress - here's where it's at right now. Expect this to evolve...",
+    year: "2026",
+    tags: ["GLSL", "Shaders", "Vite"],
+    role: "fullstack, UX/UI, 3D modeling",
+    thumbnail: "/thumbnails/reactive-shaders-thumb.jpg",
+    liveUrl: "https://wercche-shaders.vercel.app/",
+    githubUrl: "https://github.com/Kmetho/shaders",
   },
 ];
