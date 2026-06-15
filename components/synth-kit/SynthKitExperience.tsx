@@ -8,7 +8,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import ExperimentBackLink from "@/components/ExperimentBackLink";
+import WorkBackLink from "@/components/WorkBackLink";
 
 const ASSET_BASE = "/experiments/synth-kit";
 
@@ -510,7 +510,7 @@ export default function SynthKitExperience() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      <ExperimentBackLink />
+      <WorkBackLink />
       <canvas ref={canvasRef} className="fixed inset-0" />
 
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 text-right pointer-events-none">

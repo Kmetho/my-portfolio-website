@@ -18,12 +18,6 @@ export default function Home() {
           Work
         </a>
         <a
-          href="/experiments"
-          className="text-sm uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
-        >
-          Experiments
-        </a>
-        <a
           href="/about"
           className="text-sm uppercase tracking-widest text-foreground transition-opacity duration-200 hover:opacity-60"
         >

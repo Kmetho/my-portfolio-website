@@ -68,7 +68,7 @@ export default function HeroTypography() {
         }}
       >
         <h1
-          className="obvi-extended-super-italic text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground leading-[0.95] mb-4 flex justify-center"
+          className="wordmark text-4xl sm:text-7xl md:text-9xl lg:text-[10rem] text-foreground leading-[0.95] mb-4 flex justify-center"
           style={{
             perspective: "400px",
           }}
@@ -92,7 +92,7 @@ export default function HeroTypography() {
           animate="visible"
           className="text-sm sm:text-base md:text-lg text-foreground uppercase tracking-[0.3em]"
         >
-          web developer & media artist
+          creative technologist
         </motion.p>
       </div>
     </div>

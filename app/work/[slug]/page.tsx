@@ -5,43 +5,42 @@ import Nav from "@/components/Nav";
 import ContactBlob from "@/components/ContactBlob";
 import FadeIn from "@/components/motion/FadeIn";
 import PageTransition from "@/components/motion/PageTransition";
-import BriefedCaseStudy from "@/components/case-studies/BriefedCaseStudy";
-import WebfolioCaseStudy from "@/components/case-studies/WebfolioCaseStudy";
+import CaseStudy from "@/components/CaseStudy";
 import { projects } from "@/data/projects";
+import { caseStudies, getCaseStudyBySlug } from "@/data/case-studies";
 
-const caseStudies: Record<string, React.ComponentType> = {
-  briefed: BriefedCaseStudy,
-  webfolio: WebfolioCaseStudy,
-};
-
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+interface Props {
+  params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+// Only slugs with a written case study are rendered by this dynamic route.
+// digital-zine & synth-kit have dedicated experience routes
+// (app/work/digital-zine/, app/work/synth-kit/) which Next.js serves instead.
+export function generateStaticParams() {
+  return caseStudies.map((study) => ({ slug: study.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
+
   return {
     title: `${project.title} — wercche`,
     description: project.description,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+    },
   };
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function WorkSlugPage({ params }: Props) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const CaseStudy = caseStudies[project.slug];
+  const caseStudy = getCaseStudyBySlug(slug);
 
   return (
     <main className="h-screen overflow-y-auto bg-background">
@@ -124,7 +123,7 @@ export default async function ProjectPage({
             </FadeIn>
           </header>
 
-          {CaseStudy && <CaseStudy />}
+          {caseStudy && <CaseStudy caseStudy={caseStudy} />}
 
           <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
