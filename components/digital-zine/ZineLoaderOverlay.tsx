@@ -8,12 +8,12 @@ export function ZineLoaderOverlay() {
   const [hidden, setHidden] = useState(false);
   const [removed, setRemoved] = useState(false);
 
-  // Hide once the loading manager reports everything done.
+  // hide once the loading manager reports everything done
   useEffect(() => {
     if (total > 0 && !active && progress >= 100) setHidden(true);
   }, [active, progress, total]);
 
-  // Safety net: never block the experience for more than 10s.
+  // safety net: never block the experience for more than 10s
   useEffect(() => {
     const t = setTimeout(() => setHidden(true), 10000);
     return () => clearTimeout(t);

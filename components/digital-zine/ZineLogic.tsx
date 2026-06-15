@@ -2,10 +2,9 @@
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Preload, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { useReducedMotion } from "framer-motion";
 import { ZineEnvironment } from "./ZineEnvironment";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -21,7 +20,7 @@ const DRACO_PATH = "https://www.gstatic.com/draco/versioned/decoders/1.5.7/";
 
 const SECTION_BGS = sections.map((s) => `${IMG_BASE}/${s.bg}`);
 
-// these two glow under the bloom pass (Phase 4)
+// these two glow under the bloom pass
 const BLOOM_GLBS = new Set(["heart.glb", "wings.glb"]);
 
 // env map reused from the synth-kit experiment (cube faces)
@@ -36,8 +35,8 @@ const ENV_FACES = [
 
 const atm0 = sections[0].atmosphere;
 
-// Kick off GLB fetches as early as possible (module load), so they're warm by
-// the time each <ZineModel> mounts.
+// kick off glb fetches as early as possible (module load), so they're warm by
+// the time each <ZineModel> mounts
 sections.forEach((s) =>
   s.models.forEach((m) => useGLTF.preload(`${GLB_BASE}/${m.file}`, DRACO_PATH)),
 );
@@ -45,29 +44,23 @@ sections.forEach((s) =>
 type ModelDef = (typeof sections)[number]["models"][number];
 
 /**
- * A single GLB. The outer <group> handles the materialize-on-scroll scale
- * (0.001 → 1, driven by GSAP/ScrollTrigger); the inner <primitive> handles the
- * idle rotation + breathing pulse on its natural scale, in useFrame. Splitting
- * the two avoids GSAP and the render loop fighting over the same scale value.
+ * a single glb, the outer <group> handles the materialize-on-scroll scale
+ * (0.001 to 1, driven by gsap/ScrollTrigger), the inner <primitive> sits at its
+ * static scale/position/rotation from data/sections.ts, idle motion is
+ * intentionally disabled for now, organic motion will live on `modelRef`
  */
 function ZineModel({
   def,
   sectionIndex,
-  modelIndex,
 }: {
   def: ModelDef;
   sectionIndex: number;
-  modelIndex: number;
 }) {
   const gltf = useGLTF(`${GLB_BASE}/${def.file}`, DRACO_PATH);
   const outerRef = useRef<THREE.Group>(null);
   const modelRef = useRef<THREE.Object3D>(null);
-  const elapsed = useRef(0);
-  const reducedMotion = useReducedMotion();
 
-  const dir = modelIndex % 2 === 0 ? 1 : -1;
-
-  // Apply env-map intensity + emissive (for the bloom set) once per GLB.
+  // apply env-map intensity + emissive (for the bloom set) once per glb
   const object = useMemo(() => {
     const root = gltf.scene;
     const shouldBloom = BLOOM_GLBS.has(def.file);
@@ -86,7 +79,7 @@ function ZineModel({
     return root;
   }, [gltf.scene, def.file]);
 
-  // Materialize-on-scroll, tied to this model's .zine-section element.
+  // materialize-on-scroll, tied to this model's .zine-section element
   useEffect(() => {
     const outer = outerRef.current;
     if (!outer) return;
@@ -133,18 +126,9 @@ function ZineModel({
     return () => st.kill();
   }, [sectionIndex]);
 
-  // Idle rotation + subtle breathing pulse on the inner model.
-  // Skipped under prefers-reduced-motion — the model then rests at the static
-  // def.scale set on the primitive below.
-  useFrame((_state, delta) => {
-    const model = modelRef.current;
-    if (!model || !outerRef.current?.visible || reducedMotion) return;
-    elapsed.current += delta;
-    model.rotation.y += delta * 0.12 * dir;
-    const pulse =
-      1 + Math.sin(elapsed.current * 1.2 + modelIndex * 1.5) * 0.015;
-    model.scale.setScalar(def.scale * pulse);
-  });
+  // note: idle rotation/breathing intentionally removed, add organic motion
+  // here later via useFrame on `modelRef` (remember to re-gate it with
+  // useReducedMotion, as ZineEnvironment still does)
 
   return (
     <group ref={outerRef}>
@@ -168,7 +152,6 @@ function ZineModels() {
             key={`${si}-${def.file}-${mi}`}
             def={def}
             sectionIndex={si}
-            modelIndex={mi}
           />
         )),
       )}
@@ -181,13 +164,13 @@ function ZineScene() {
   const fogRef = useRef<THREE.FogExp2>(null);
   const ambientRef = useRef<THREE.AmbientLight>(null);
 
-  // Load the env map + per-section backgrounds imperatively (no Suspense yet —
-  // that arrives in Phase 6), then wire the GSAP ScrollTrigger atmosphere scrub.
+  // load the env map + per-section backgrounds imperatively, then wire the
+  // gsap ScrollTrigger atmosphere scrub
   useEffect(() => {
     const fog = fogRef.current;
     const ambient = ambientRef.current;
 
-    // env map → scene.environment (drives reflections on standard materials)
+    // env map becomes scene.environment (drives reflections on standard materials)
     const cubeLoader = new THREE.CubeTextureLoader();
     const envMap = cubeLoader.load(ENV_FACES);
     scene.environment = envMap;
@@ -203,7 +186,7 @@ function ZineScene() {
       });
     });
 
-    // Per-section scroll wiring against the existing .zine-section elements
+    // per-section scroll wiring against the existing .zine-section elements
     const triggers: ScrollTrigger[] = [];
     const sectionEls =
       document.querySelectorAll<HTMLElement>(".zine-section");
@@ -223,7 +206,7 @@ function ZineScene() {
         }),
       );
 
-      // atmosphere scrub — section 0 is the default state, so skip it
+      // atmosphere scrub, section 0 is the default state, so skip it
       const atm = sections[si]?.atmosphere;
       if (!atm || si === 0 || !fog || !ambient) return;
 
@@ -275,13 +258,16 @@ function ZineScene() {
         args={[atm0.fogColor, atm0.fogDensity]}
       />
       <ambientLight ref={ambientRef} intensity={0.7} color={atm0.ambientColor} />
+      {/* temp placement guide, remove when models are positioned
+          red = +X (right), green = +Y (up), blue = +Z (toward camera) */}
+      <axesHelper args={[5]} />
       <ZineEnvironment />
       <Suspense fallback={null}>
         <ZineModels />
         <Preload all />
       </Suspense>
-      {/* Bloom — ported from the vanilla UnrealBloomPass(0.4, 0.6, 0.85).
-          strength→intensity, radius→radius, threshold→luminanceThreshold. */}
+      {/* Bloom, ported from the vanilla UnrealBloomPass(0.4, 0.6, 0.85)
+          strength to intensity, radius to radius, threshold to luminanceThreshold */}
       <EffectComposer>
         <Bloom
           intensity={0.4}
@@ -300,7 +286,7 @@ export default function ZineLogic() {
     <div className="fixed inset-0 z-0">
       <Canvas
         dpr={[1, 2]}
-        camera={{ fov: 50, position: [0, 0, 5], near: 0.1, far: 100 }}
+        camera={{ fov: 80, position: [0, 0.1, 5], rotation: [-0.1, 0, 0], near: 0.1, far: 100 }}
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
