@@ -26,7 +26,6 @@
   }
 }
 
-/* Polymath display */
 @utility display-bold-italic {
   font-family: var(--font-display);
   font-style: italic;

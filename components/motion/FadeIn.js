@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const directionMap = {
   up: { y: 1, x: 0 },
@@ -20,19 +19,15 @@ export default function FadeIn({
   className = "",
   as = "div",
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once, margin: "-60px 0px" });
-
   const d = directionMap[direction] || directionMap.up;
-
-  const MotionTag = motion.create(as);
+  const MotionTag = motion[as] || motion.div;
 
   return (
     <MotionTag
-      ref={ref}
       className={className}
       initial={{ opacity: 0, x: d.x * distance, y: d.y * distance }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : undefined}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once, margin: "-60px 0px" }}
       transition={{
         duration,
         delay,

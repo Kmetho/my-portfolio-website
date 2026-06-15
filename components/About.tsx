@@ -16,11 +16,6 @@ export default function About() {
     <PageTransition>
       <div>
         <section className="px-[clamp(1rem,4vw,4rem)] pt-24 pb-12">
-          <FadeIn delay={0}>
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground mb-8">
-              About
-            </p>
-          </FadeIn>
           <div className="font-sans max-w-[70ch] space-y-6 text-lg md:text-xl leading-relaxed text-foreground">
             <FadeIn delay={0.1}>
               <p>
@@ -37,8 +32,6 @@ export default function About() {
             </FadeIn>
           </div>
         </section>
-
-        <div className="mx-[clamp(1rem,4vw,4rem)] h-px bg-border" />
 
         <section className="px-[clamp(1rem,4vw,4rem)] py-16">
           <FadeIn>

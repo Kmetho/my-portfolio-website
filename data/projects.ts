@@ -8,6 +8,7 @@ export interface Project {
   thumbnail: string;
   liveUrl?: string;
   githubUrl?: string;
+  wip?: boolean;
 }
 
 export const projects: Project[] = [
@@ -39,7 +40,7 @@ export const projects: Project[] = [
     slug: "webfolio",
     title: "Personal portfolio website",
     description:
-      "A personal portfolio website built to not work in hospitality anymore, change my life, showcase my skills and to have a better quality of life.",
+      "A personal portfolio website (this one!) built to not work in hospitality anymore, change my life, showcase my skills.",
     year: "2026",
     tags: [
       "Next.js",
@@ -60,12 +61,13 @@ export const projects: Project[] = [
     title: "Cyber Love Poems",
     description:
       "An interactive poetry zine. Scroll through 3D environments inhabited by love poems written in the language of technology.",
-    year: "zine: 2024, digital version: 2026",
+    year: "paper version: 2024",
     tags: ["React Three Fiber", "GSAP", "Poetry", "3D"],
     role: "fullstack, UX/UI, writer, 3D modeling",
     thumbnail: "/thumbnails/digital-zine-thumb.png",
     liveUrl: "https://wercche.xyz/work/digital-zine",
     githubUrl: "https://github.com/Kmetho/my-portfolio-website",
+    wip: true,
   },
 
   {
@@ -85,12 +87,13 @@ export const projects: Project[] = [
     slug: "reactive-shaders",
     title: "Reactive Shaders",
     description:
-      "Work in progress - here's where it's at right now. Expect this to evolve...",
+      "A website that listens (microphone input) and reacts (shaders).",
     year: "2026",
     tags: ["GLSL", "Shaders", "Vite"],
     role: "fullstack, UX/UI, 3D modeling",
     thumbnail: "/thumbnails/reactive-shaders-thumb.jpg",
     liveUrl: "https://wercche-shaders.vercel.app/",
     githubUrl: "https://github.com/Kmetho/shaders",
+    wip: true,
   },
 ];
