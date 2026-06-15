@@ -1,16 +1,14 @@
 "use client";
 
-import { use, useEffect, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { Canvas, useThree } from "@react-three/fiber";
+import { Preload, useGLTF } from "@react-three/drei";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { ZineEnvironment } from "./ZineEnvironment";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { sections } from "@/data/sections";
-import { ZineEnvironment } from "./ZineEnvironment";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,411 +16,285 @@ if (typeof window !== "undefined") {
 
 const IMG_BASE = "/experiments/digital-zine/images";
 const GLB_BASE = "/experiments/digital-zine/glb";
+const DRACO_PATH = "https://www.gstatic.com/draco/versioned/decoders/1.5.7/";
 
 const SECTION_BGS = sections.map((s) => `${IMG_BASE}/${s.bg}`);
 
-const SECTION_MODELS = sections.map((s) =>
-  s.models.map((m) => ({ ...m, file: `${GLB_BASE}/${m.file}` })),
-);
-
+// these two glow under the bloom pass
 const BLOOM_GLBS = new Set(["heart.glb", "wings.glb"]);
 
-const SECTION_ATMOSPHERES = [
-  sections[0].atmosphere,
-  sections[1].atmosphere,
-  sections[2].atmosphere,
-  sections[3].atmosphere,
-  sections[4].atmosphere,
-  sections[5].atmosphere,
-  sections[6].atmosphere,
+// env map reused from the synth-kit experiment (cube faces)
+const ENV_FACES = [
+  "/experiments/synth-kit/images/px.png",
+  "/experiments/synth-kit/images/nx.png",
+  "/experiments/synth-kit/images/py.png",
+  "/experiments/synth-kit/images/ny.png",
+  "/experiments/synth-kit/images/pz.png",
+  "/experiments/synth-kit/images/nz.png",
 ];
 
-export default function ZineLogic() {
-  const containerRef = useRef<HTMLDivElement>(null);
+const atm0 = sections[0].atmosphere;
 
+// kick off glb fetches as early as possible (module load), so they're warm by
+// the time each <ZineModel> mounts
+sections.forEach((s) =>
+  s.models.forEach((m) => useGLTF.preload(`${GLB_BASE}/${m.file}`, DRACO_PATH)),
+);
+
+type ModelDef = (typeof sections)[number]["models"][number];
+
+/**
+ * a single glb, the outer <group> handles the materialize-on-scroll scale
+ * (0.001 to 1, driven by gsap/ScrollTrigger), the inner <primitive> sits at its
+ * static scale/position/rotation from data/sections.ts, idle motion is
+ * intentionally disabled for now, organic motion will live on `modelRef`
+ */
+function ZineModel({
+  def,
+  sectionIndex,
+}: {
+  def: ModelDef;
+  sectionIndex: number;
+}) {
+  const gltf = useGLTF(`${GLB_BASE}/${def.file}`, DRACO_PATH);
+  const outerRef = useRef<THREE.Group>(null);
+  const modelRef = useRef<THREE.Object3D>(null);
+
+  // apply env-map intensity + emissive (for the bloom set) once per glb
+  const object = useMemo(() => {
+    const root = gltf.scene;
+    const shouldBloom = BLOOM_GLBS.has(def.file);
+    root.traverse((child) => {
+      const mesh = child as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const mat = mesh.material as THREE.MeshStandardMaterial;
+      if (!mat) return;
+      mat.envMapIntensity = 0.8;
+      if (shouldBloom) {
+        mat.emissive = new THREE.Color("#e8a0c0");
+        mat.emissiveIntensity = 0.6;
+      }
+      mat.needsUpdate = true;
+    });
+    return root;
+  }, [gltf.scene, def.file]);
+
+  // materialize-on-scroll, tied to this model's .zine-section element
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const outer = outerRef.current;
+    if (!outer) return;
+    const el =
+      document.querySelectorAll<HTMLElement>(".zine-section")[sectionIndex];
+    if (!el) return;
 
-    const atmospheres = SECTION_ATMOSPHERES;
-    const atm0 = atmospheres[0];
+    outer.scale.setScalar(0.001);
+    outer.visible = false;
 
-    // renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
-    container.appendChild(renderer.domElement);
+    const show = () => {
+      outer.visible = true;
+      gsap.to(outer.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 0.8,
+        ease: "back.out(1.4)",
+      });
+    };
+    const hide = () => {
+      gsap.to(outer.scale, {
+        x: 0.001,
+        y: 0.001,
+        z: 0.001,
+        duration: 0.5,
+        ease: "power2.in",
+        onComplete: () => {
+          outer.visible = false;
+        },
+      });
+    };
 
-    // scene + camera
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(atm0.fogColor, atm0.fogDensity);
-
-    const camera = new THREE.PerspectiveCamera(
-      50,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100,
-    );
-    camera.position.set(0, 0, 5);
-
-    // lights
-    const ambientLight = new THREE.AmbientLight(atm0.ambientColor, 0.7);
-    scene.add(ambientLight);
-
-    // tweak these later
-
-    // const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
-    // dirLight.position.set(4, 5, 5);
-    // scene.add(dirLight);
-    // const fillLight = new THREE.DirectionalLight(0xd8cce8, 0.3);
-    // fillLight.position.set(-3, -2, 3);
-    // scene.add(fillLight);
-    // const accentLight = new THREE.PointLight(0xe8a0b8, 0.5, 20);
-    // accentLight.position.set(0, 3, 3);
-    // scene.add(accentLight);
-
-    // composer & bloom
-    const composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
-
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.4, // strength — how intense the glow is
-      0.6, // radius — how far the glow spreads
-      0.85, // threshold — brightness cutoff (only bright parts bloom)
-    );
-    composer.addPass(bloomPass);
-
-    // bgs
-    const textureLoader = new THREE.TextureLoader();
-    const bgTextures: THREE.Texture[] = [];
-    const bgLoadPromises = SECTION_BGS.map(
-      (path, i) =>
-        new Promise<void>((resolve) => {
-          textureLoader.load(
-            path,
-            (tex) => {
-              tex.colorSpace = THREE.SRGBColorSpace;
-              bgTextures[i] = tex;
-              // first bg as scene background immediately
-              if (i === 0) scene.background = tex;
-              resolve();
-            },
-            undefined,
-            () => {
-              console.error(`[Zine] Failed to load bg: ${path}`);
-              resolve();
-            },
-          );
-        }),
-    );
-
-    // env map (reused from synth-kit)
-    const cubeTextureLoader = new THREE.CubeTextureLoader();
-    const envMap = cubeTextureLoader.load([
-      "/experiments/synth-kit/images/px.png",
-      "/experiments/synth-kit/images/nx.png",
-      "/experiments/synth-kit/images/py.png",
-      "/experiments/synth-kit/images/ny.png",
-      "/experiments/synth-kit/images/pz.png",
-      "/experiments/synth-kit/images/nz.png",
-    ]);
-    scene.environment = envMap;
-
-    // GLBs (with draco compression)
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath(
-      "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
-    );
-    const gltfLoader = new GLTFLoader();
-    gltfLoader.setDRACOLoader(dracoLoader);
-
-    const sectionGroups: THREE.Group[] = [];
-    const sectionModels: THREE.Object3D[][] = [];
-
-    SECTION_MODELS.forEach(() => {
-      const group = new THREE.Group();
-      scene.add(group);
-      sectionGroups.push(group);
-      sectionModels.push([]);
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      end: "bottom 10%",
+      onEnter: show,
+      onLeave: hide,
+      onEnterBack: show,
+      onLeaveBack: hide,
     });
 
-    const glbLoadPromises: Promise<void>[] = [];
-    SECTION_MODELS.forEach((defs, si) => {
-      defs.forEach((def) => {
-        const url = def.file;
-        glbLoadPromises.push(
-          new Promise<void>((resolve) => {
-            gltfLoader.load(
-              url,
-              (gltf) => {
-                const model = gltf.scene;
-                model.scale.setScalar(def.scale);
-                // model.position.set(...def.pos);
-                // model.rotation.set(...def.rot);
+    return () => st.kill();
+  }, [sectionIndex]);
 
-                // log bounding box to diagnose scale/position
-                const box = new THREE.Box3().setFromObject(model);
-                const size = new THREE.Vector3();
-                box.getSize(size);
-                console.log(
-                  `[Zine] ${def.file} → section ${si} | bbox size: ${size.x.toFixed(2)} x ${size.y.toFixed(2)} x ${size.z.toFixed(2)} | pos: ${model.position.toArray().map((v) => v.toFixed(2))}`,
-                );
+  // note: idle rotation/breathing intentionally removed, add organic motion
+  // here later via useFrame on `modelRef` (remember to re-gate it with
+  // useReducedMotion, as ZineEnvironment still does)
 
-                const shouldBloom = BLOOM_GLBS.has(def.file);
-                model.traverse((child) => {
-                  if ((child as THREE.Mesh).isMesh) {
-                    const mat = (child as THREE.Mesh)
-                      .material as THREE.MeshStandardMaterial;
-                    if (mat) {
-                      mat.envMapIntensity = 0.8;
-                      if (shouldBloom) {
-                        mat.emissive = new THREE.Color("#e8a0c0");
-                        mat.emissiveIntensity = 0.6;
-                      }
-                      mat.needsUpdate = true;
-                    }
-                  }
-                });
+  return (
+    <group ref={outerRef}>
+      <primitive
+        ref={modelRef}
+        object={object}
+        scale={def.scale}
+        position={def.pos ?? [0, 0, 0]}
+        rotation={def.rot ?? [0, 0, 0]}
+      />
+    </group>
+  );
+}
 
-                sectionGroups[si].add(model);
-                sectionModels[si].push(model);
-                resolve();
-              },
-              undefined,
-              (err) => {
-                console.error(`[Zine] FAILED ${url}:`, err);
-                resolve();
-              },
-            );
-          }),
-        );
+function ZineModels() {
+  return (
+    <>
+      {sections.map((section, si) =>
+        section.models.map((def, mi) => (
+          <ZineModel
+            key={`${si}-${def.file}-${mi}`}
+            def={def}
+            sectionIndex={si}
+          />
+        )),
+      )}
+    </>
+  );
+}
+
+function ZineScene() {
+  const { scene } = useThree();
+  const fogRef = useRef<THREE.FogExp2>(null);
+  const ambientRef = useRef<THREE.AmbientLight>(null);
+
+  // load the env map + per-section backgrounds imperatively, then wire the
+  // gsap ScrollTrigger atmosphere scrub
+  useEffect(() => {
+    const fog = fogRef.current;
+    const ambient = ambientRef.current;
+
+    // env map becomes scene.environment (drives reflections on standard materials)
+    const cubeLoader = new THREE.CubeTextureLoader();
+    const envMap = cubeLoader.load(ENV_FACES);
+    scene.environment = envMap;
+
+    // backgrounds: load all, set section 0 as the initial background
+    const texLoader = new THREE.TextureLoader();
+    const bgTextures: THREE.Texture[] = [];
+    SECTION_BGS.forEach((path, i) => {
+      texLoader.load(path, (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        bgTextures[i] = tex;
+        if (i === 0 && !scene.background) scene.background = tex;
       });
     });
 
-    // GSAP ScrollTrigger
-    const allScrollTriggers: ScrollTrigger[] = [];
+    // per-section scroll wiring against the existing .zine-section elements
+    const triggers: ScrollTrigger[] = [];
+    const sectionEls =
+      document.querySelectorAll<HTMLElement>(".zine-section");
 
-    Promise.all([...glbLoadPromises, ...bgLoadPromises]).then(() => {
-      console.log("[Zine] All assets loaded");
-
-      // set initial bg
-      if (bgTextures[0]) {
-        scene.background = bgTextures[0];
-      }
-
-      // query all sections:
-      const allSections =
-        document.querySelectorAll<HTMLElement>(".zine-section");
-      console.log(`[Zine] Found ${allSections.length} total sections`);
-
-      allSections.forEach((sectionElem, si) => {
-        const models = sectionModels[si] || [];
-        const defs = SECTION_MODELS[si] || [];
-        const atm = atmospheres[si];
-
-        // models materialize when their section enters
-        models.forEach((model, mi) => {
-          const def = defs[mi];
-          if (!def) return;
-          // model.position.set(...def.pos);
-          // model.rotation.set(...def.rot);
-          model.scale.setScalar(0.001);
-          model.visible = false;
-        });
-
-        // scalling up/down on enter/leave
-        const modelsScroll = ScrollTrigger.create({
-          trigger: sectionElem,
-          start: "top 90%",
-          end: "bottom 10%",
+    sectionEls.forEach((el, si) => {
+      // background swap when the section reaches mid-viewport
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 60%",
           onEnter: () => {
-            models.forEach((model, mi) => {
-              const def = defs[mi];
-              if (!def) return;
-              model.visible = true;
-              gsap.to(model.scale, {
-                x: def.scale,
-                y: def.scale,
-                z: def.scale,
-                duration: 0.8,
-                ease: "back.out(1.4)",
-              });
-            });
-          },
-          onLeave: () => {
-            models.forEach((model) => {
-              gsap.to(model.scale, {
-                x: 0.001,
-                y: 0.001,
-                z: 0.001,
-                duration: 0.5,
-                ease: "power2.in",
-                onComplete: () => {
-                  model.visible = false;
-                },
-              });
-            });
+            if (bgTextures[si]) scene.background = bgTextures[si];
           },
           onEnterBack: () => {
-            models.forEach((model, mi) => {
-              const def = defs[mi];
-              if (!def) return;
-              model.visible = true;
-              gsap.to(model.scale, {
-                x: def.scale,
-                y: def.scale,
-                z: def.scale,
-                duration: 0.8,
-                ease: "back.out(1.4)",
-              });
-            });
+            if (bgTextures[si]) scene.background = bgTextures[si];
           },
-          onLeaveBack: () => {
-            models.forEach((model) => {
-              gsap.to(model.scale, {
-                x: 0.001,
-                y: 0.001,
-                z: 0.001,
-                duration: 0.5,
-                ease: "power2.in",
-                onComplete: () => {
-                  model.visible = false;
-                },
-              });
-            });
-          },
-        });
-        allScrollTriggers.push(modelsScroll);
+        }),
+      );
 
-        // bg swap per section
-        if (bgTextures[si]) {
-          const bgScroll = ScrollTrigger.create({
-            trigger: sectionElem,
-            start: "top 60%",
-            onEnter: () => {
-              scene.background = bgTextures[si];
-            },
-            onEnterBack: () => {
-              scene.background = bgTextures[si];
-            },
-          });
-          allScrollTriggers.push(bgScroll);
-        }
+      // atmosphere scrub, section 0 is the default state, so skip it
+      const atm = sections[si]?.atmosphere;
+      if (!atm || si === 0 || !fog || !ambient) return;
 
-        // atmosphere transition
-        if (!atm || si === 0) return; // s0 atmosphere set as default
-        const targetFog = new THREE.Color(atm.fogColor);
-        const targetAmbient = new THREE.Color(atm.ambientColor);
+      const targetFog = new THREE.Color(atm.fogColor);
+      const targetAmbient = new THREE.Color(atm.ambientColor);
 
-        const atmTmln = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionElem,
-            start: "top 70%",
-            end: "top 20%",
-            scrub: 1,
-          },
-        });
-        if (atmTmln.scrollTrigger)
-          allScrollTriggers.push(atmTmln.scrollTrigger);
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: "top 70%",
+          end: "top 20%",
+          scrub: 1,
+        },
+      });
+      if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
 
-        atmTmln.to(
-          (scene.fog as THREE.FogExp2).color,
-          {
-            r: targetFog.r,
-            g: targetFog.g,
-            b: targetFog.b,
-            duration: 1,
-            ease: "none",
-          },
-          0,
-        );
-        atmTmln.to(
-          ambientLight.color,
+      tl.to(
+        fog.color,
+        { r: targetFog.r, g: targetFog.g, b: targetFog.b, ease: "none" },
+        0,
+      )
+        .to(
+          ambient.color,
           {
             r: targetAmbient.r,
             g: targetAmbient.g,
             b: targetAmbient.b,
-            duration: 1,
             ease: "none",
           },
           0,
-        );
-        atmTmln.to(
-          scene.fog as THREE.FogExp2,
-          {
-            density: atm.fogDensity,
-            duration: 1,
-            ease: "none",
-          },
-          0,
-        );
-      });
+        )
+        .to(fog, { density: atm.fogDensity, ease: "none" }, 0);
     });
 
-    // render loop
-    let animId: number;
-    const timer = new THREE.Timer();
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      timer.update();
-      const t = timer.getElapsed();
+    ScrollTrigger.refresh();
 
-      // gentle pulse + slow rotation on all visible models
-      sectionModels.forEach((models) => {
-        models.forEach((model, mi) => {
-          if (!model.visible || model.scale.x < 0.01) return;
-          model.rotation.y += 0.002 * (mi % 2 === 0 ? 1 : -1);
-          // subtle breathing scale pulse
-          const pulse = 1 + Math.sin(t * 1.2 + mi * 1.5) * 0.015;
-          const base = model.userData.baseScale ?? model.scale.x;
-          model.userData.baseScale = base;
-          model.scale.setScalar(base * pulse);
-        });
-      });
-
-      composer.render();
-    };
-    animate();
-
-    // window resize
-    const onResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      composer.setSize(w, h);
-    };
-    window.addEventListener("resize", onResize);
-
-    // cleanup
     return () => {
-      window.removeEventListener("resize", onResize);
-      cancelAnimationFrame(animId);
-      allScrollTriggers.forEach((st) => st.kill());
-      dracoLoader.dispose();
+      triggers.forEach((t) => t.kill());
       envMap.dispose();
       bgTextures.forEach((t) => t?.dispose());
-      composer.dispose();
-      renderer.dispose();
-      scene.traverse((obj) => {
-        if ((obj as THREE.Mesh).isMesh) {
-          const m = obj as THREE.Mesh;
-          m.geometry?.dispose();
-          if (Array.isArray(m.material))
-            m.material.forEach((mt) => mt.dispose());
-          else m.material?.dispose();
-        }
-      });
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
     };
-  }, []);
+  }, [scene]);
 
-  return <div ref={containerRef} className="zine-canvas fixed inset-0 z-0" />;
+  return (
+    <>
+      <fogExp2
+        ref={fogRef}
+        attach="fog"
+        args={[atm0.fogColor, atm0.fogDensity]}
+      />
+      <ambientLight ref={ambientRef} intensity={0.7} color={atm0.ambientColor} />
+      {/* temp placement guide, remove when models are positioned
+          red = +X (right), green = +Y (up), blue = +Z (toward camera) */}
+      <axesHelper args={[5]} />
+      <ZineEnvironment />
+      <Suspense fallback={null}>
+        <ZineModels />
+        <Preload all />
+      </Suspense>
+      {/* Bloom, ported from the vanilla UnrealBloomPass(0.4, 0.6, 0.85)
+          strength to intensity, radius to radius, threshold to luminanceThreshold */}
+      <EffectComposer>
+        <Bloom
+          intensity={0.4}
+          radius={0.6}
+          luminanceThreshold={0.85}
+          luminanceSmoothing={0.025}
+          mipmapBlur
+        />
+      </EffectComposer>
+    </>
+  );
+}
+
+export default function ZineLogic() {
+  return (
+    <div className="fixed inset-0 z-0">
+      <Canvas
+        dpr={[1, 2]}
+        camera={{ fov: 80, position: [0, 0.1, 5], rotation: [-0.1, 0, 0], near: 0.1, far: 100 }}
+        gl={{
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
+        }}
+      >
+        <ZineScene />
+      </Canvas>
+    </div>
+  );
 }

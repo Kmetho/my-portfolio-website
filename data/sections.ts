@@ -29,7 +29,9 @@ export const sections: Section[] = [
   {
     id: "section0",
     bg: "bg1.png",
-    models: [{ file: "cover-flower.glb", scale: 3 }],
+    models: [
+      { file: "cover-flower.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
+    ],
     atmosphere: {
       fogColor: "#d5cde0",
       fogDensity: 0.02,
@@ -40,7 +42,7 @@ export const sections: Section[] = [
   {
     id: "section1",
     bg: "bg2.png",
-    models: [{ file: "slimes.glb", scale: 2.5 }],
+    models: [{ file: "slimes.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] }],
     atmosphere: {
       fogColor: "#d5cde0",
       fogDensity: 0.03,
@@ -70,8 +72,8 @@ export const sections: Section[] = [
     id: "section2",
     bg: "bg3.png",
     models: [
-      { file: "shape1.glb", scale: 1.8 },
-      { file: "shape2.glb", scale: 1.5 },
+      { file: "shape1.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
+      { file: "shape2.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
     ],
     atmosphere: {
       fogColor: "#001a1a",
@@ -113,7 +115,7 @@ export const sections: Section[] = [
   {
     id: "section3",
     bg: "bg4.png",
-    models: [{ file: "frame2.glb", scale: 2.5 }],
+    models: [{ file: "frame2.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] }],
     atmosphere: {
       fogColor: "#050a05",
       fogDensity: 0.08,
@@ -185,10 +187,10 @@ export const sections: Section[] = [
     id: "section4",
     bg: "bg5.png",
     models: [
-      { file: "heart.glb", scale: 1.5 },
-      { file: "wings.glb", scale: 1 },
-      { file: "shape4.glb", scale: 1.5 },
-      { file: "shape5.glb", scale: 0.8 },
+      { file: "heart.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
+      { file: "wings.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
+      { file: "shape4.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
+      { file: "shape5.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] },
     ],
     atmosphere: {
       fogColor: "#b2ebf2",
@@ -234,7 +236,7 @@ export const sections: Section[] = [
   {
     id: "section5",
     bg: "bg6.png",
-    models: [{ file: "shape3.glb", scale: 1.8 }],
+    models: [{ file: "shape3.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] }],
     atmosphere: {
       fogColor: "#2b0a00",
       fogDensity: 0.04,
@@ -292,7 +294,7 @@ export const sections: Section[] = [
   {
     id: "section6",
     bg: "bg7.png",
-    models: [{ file: "frame.glb", scale: 2.5 }],
+    models: [{ file: "frame.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] }],
     atmosphere: {
       fogColor: "#f3e5f5",
       fogDensity: 0.02,
@@ -319,7 +321,7 @@ export const sections: Section[] = [
   {
     id: "section7",
     bg: "bg1.png",
-    models: [{ file: "butterfly.glb", scale: 2 }],
+    models: [{ file: "butterfly.glb", scale: 1, pos: [0, 0, 0], rot: [0, 0, 0] }],
     atmosphere: {
       fogColor: "#d5cde0",
       fogDensity: 0.02,
