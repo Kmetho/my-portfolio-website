@@ -35,7 +35,7 @@ export default function ProjectCard({
   }, [warnOpen]);
 
   return (
-    <div className="glass rounded-4xl border border-border pt-8 pl-8 pr-8">
+    <div className="glass rounded-4xl border border-border pt-8 pl-8 pr-8 z-10">
       <FadeIn delay={delay}>
         <motion.article
           className="group overflow-hidden border-t border-border"

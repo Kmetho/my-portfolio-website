@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import CursorTrail from "@/components/CursorTrail";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wercche.xyz"),
@@ -43,6 +44,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <CursorTrail />
         <Analytics />
         <SpeedInsights />
       </body>
