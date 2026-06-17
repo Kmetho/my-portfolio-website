@@ -96,4 +96,18 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Kmetho/shaders",
     wip: true,
   },
+
+  {
+    slug: "paulina-rams-portfolio",
+    title: "Portfolio website for Paulina Rams",
+    description:
+      "An updated portfolio website for a graphic designer, Paulina Rams. Migrated to Astro for better performance and SEO, with the same design but improved user experience. First version built in 2023 as one of my first freelance projects, and now updated in 2026 with new features and a more modern tech stack.",
+    year: "2026",
+    tags: ["Astro", "WebGL", "TypeScript"],
+    role: "fullstack, working with a designer",
+    thumbnail: "/thumbnails/paulina-thumb.jpg",
+    // liveUrl: "https://paulinarams.com/",
+    githubUrl: "https://github.com/Kmetho/paulina-update",
+    wip: true,
+  },
 ];
